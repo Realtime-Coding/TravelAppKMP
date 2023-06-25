@@ -7,6 +7,7 @@ include(":desktopApp")
 pluginManagement {
     repositories {
         gradlePluginPortal()
+        mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         google()
     }
@@ -24,6 +25,8 @@ pluginManagement {
         id("com.android.library").version(agpVersion)
 
         id("org.jetbrains.compose").version(composeVersion)
+        id("org.jetbrains.kotlin.android") version "1.8.20"
+
     }
 }
 

@@ -19,12 +19,12 @@ android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = findProperty("android.namespace") as String
 
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].manifest.srcFile("src/main/AndroidManifest.xml")
 
     defaultConfig {
         applicationId = findProperty("package") as String
         minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
+        targetSdkVersion((findProperty("android.targetSdk") as String).toInt())
         versionCode = 1
         versionName = "1.0"
     }
@@ -36,3 +36,4 @@ android {
         jvmToolchain(11)
     }
 }
+
