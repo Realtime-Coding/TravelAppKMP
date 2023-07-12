@@ -17,7 +17,7 @@ fun App() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            GreetingView(Greeting().greet())
+            GreetingView("Hello World")
         }
     }
 }
@@ -28,5 +28,6 @@ fun GreetingView(text: String) {
     Text(text = text)
 }
 
+expect fun getPlatformName(): String
 
 

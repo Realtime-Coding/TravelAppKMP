@@ -15,6 +15,14 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+//    jvm {
+//        sourceSets {
+//            named("jvmMain") {
+//                resources.srcDir("src/commonMain/resources") // <============= here
+//            }
+//        }
+//    }
+
     cocoapods {
         version = "1.0.0"
         summary = "Some description for the Shared Module"
