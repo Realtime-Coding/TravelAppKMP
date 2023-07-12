@@ -24,8 +24,8 @@ kotlin {
         framework {
             baseName = "shared"
             isStatic = true
-            export("dev.icerock.moko:resources:0.23.0")
-            export("dev.icerock.moko:graphics:0.9.0") // toUIColor here
+//            export("dev.icerock.moko:resources:0.23.0")
+//            export("dev.icerock.moko:graphics:0.9.0") // toUIColor here
         }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }

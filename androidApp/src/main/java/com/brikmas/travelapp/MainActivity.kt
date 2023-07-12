@@ -21,10 +21,3 @@ class MainActivity : AppCompatActivity() {
 fun DefaultPreview() {
      MainView()
 }
-
-/*
-@Composable
-fun stringResource(id: StringResource, vararg args: Any): String {
-    return Strings(LocalContext.current).get(id, args.toList())
-
-*/
