@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="textColor">
-        <light>0x1B5E20FF</light>
-        <dark>0x81C784FF</dark>
+        <light>0x2A2A2A</light>
+        <dark>0x2A2A2A</dark>
+    </color>
+    <color name="secondTextColor">
+        <light>0x8D94A2</light>
+        <dark>0x8D94A2</dark>
+    </color>
+    <color name="thirdTextColor">
+        <light>0x1C9FE2</light>
+        <dark>0x1C9FE2</dark>
+    </color>
+    <color name="categoryBgColor">
+        <light>0xF6F8FA</light>
+        <dark>0xF6F8FA</dark>
+    </color>
+    <color name="white">
+        <light>0xFFFFFF</light>
+        <dark>0xFFFFFF</dark>
+    </color>
+    <color name="backgroundColor">
+        <light>0xFFFFFF</light>
+        <dark>0xFFFFFF</dark>
+    </color>
+    <color name="primaryColor">
+        <light>0x1C9FE2</light>
+        <dark>0x1C9FE2</dark>
     </color>
 </resources>
