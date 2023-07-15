@@ -2,6 +2,7 @@ package com.brikmas.travelapp.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,10 +36,14 @@ import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
-fun destinationSmallItem(destination: Destination) {
+fun destinationSmallItem(
+    destination: Destination,
+    onItemClicked: (Destination) -> Unit
+) {
     Card(
         modifier = Modifier
             .padding(start = 16.dp , top = 12.dp, end = 16.dp)
+            .clickable { onItemClicked.invoke(destination) }
             .shadow(
                 elevation = 4.dp,
                 shape = RoundedCornerShape(12.dp),
@@ -116,12 +121,16 @@ fun destinationSmallItem(destination: Destination) {
 }
 
 @Composable
-fun destinationLargeItem(destination: Destination) {
+fun destinationLargeItem(
+    destination: Destination,
+    onItemClicked: (Destination) -> Unit
+) {
     Box(
         modifier = Modifier
             .width(222.dp)
             .height(143.dp)
             .padding(start = 16.dp)
+            .clickable { onItemClicked.invoke(destination) }
             .background(
                 color = colorResource(SharedRes.colors.categoryBgColor),
                 shape = RoundedCornerShape(10.dp)
@@ -190,20 +199,28 @@ fun loadDestinationSmallItems(destinations: List<Destination>){
     ) {
         items(
             items = destinations,
-            itemContent = { destinationSmallItem(it) }
+            itemContent = { destinationSmallItem(it,{}) }
         )
     }
 }
 
 @Composable
-fun loadDestinationLargeItems(destinations: List<Destination>){
+fun loadDestinationLargeItems(
+    destinations: List<Destination>,
+    onItemClicked: (Destination) -> Unit
+){
     LazyRow(
         modifier = Modifier.padding(top = 22.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(
             items = destinations,
-            itemContent = { destinationLargeItem(it) }
+            itemContent = {
+                destinationLargeItem(
+                    destination = it,
+                    onItemClicked = onItemClicked
+                )
+            }
         )
     }
 }

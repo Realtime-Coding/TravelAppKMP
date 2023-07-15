@@ -49,6 +49,8 @@ kotlin {
                 implementation("io.github.qdsfdhvh:image-loader:1.2.9")
                 api("dev.icerock.moko:resources:0.23.0")
                 api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
+//                api("com.arkivanov.decompose:decompose:2.0.0")
+//                api("com.arkivanov.decompose:extensions-compose-jetbrains:2.0.0")
             }
         }
         val androidMain by getting {

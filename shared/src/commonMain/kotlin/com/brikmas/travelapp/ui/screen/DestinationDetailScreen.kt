@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -32,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import com.brikmas.travelapp.Navigation.Route
 import com.brikmas.travelapp.SharedRes
 import com.brikmas.travelapp.model.Destination
 import com.brikmas.travelapp.ui.component.PrimaryButton
@@ -41,13 +43,13 @@ import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
-fun DestinationDetailScreen(destination: Destination) {
+fun DestinationDetailScreen(routeState: MutableState<Route>, destination: Destination) {
     Column (
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
-        topSection()
+        topSection(routeState)
         contentSection(destination)
         PrimaryButton("Book Now", PaddingValues(start = 25.dp, top = 36.dp, end = 25.dp, bottom = 36.dp))
     }
@@ -55,7 +57,7 @@ fun DestinationDetailScreen(destination: Destination) {
 
 
 @Composable
-fun topSection() {
+fun topSection(routeState: MutableState<Route>) {
     Box(
         modifier = Modifier.fillMaxWidth().height(350.dp)
     ) {
@@ -77,7 +79,7 @@ fun topSection() {
             contentDescription = "image description",
             contentScale = ContentScale.FillBounds
         )
-        destinationDetailHeader()
+        destinationDetailHeader(routeState)
     }
 }
 
