@@ -39,6 +39,7 @@ fun getTypography(): Typography {
             fontFamily = sfProFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
+            lineHeight = 18.sp,
         ),
         bodyMedium  = TextStyle(
             fontFamily = sfProFamily,

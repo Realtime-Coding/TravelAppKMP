@@ -65,3 +65,23 @@ fun homeHeader(){
         )
     }
 }
+
+@Composable
+fun destinationDetailHeader() {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Image(
+            modifier = Modifier.size(36.dp),
+            painter = painterResource(SharedRes.images.back),
+            contentDescription = null
+        )
+        Image(
+            modifier = Modifier.size(36.dp),
+            painter = painterResource(SharedRes.images.favorite),
+            contentDescription = null
+        )
+    }
+}

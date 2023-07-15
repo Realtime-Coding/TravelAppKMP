@@ -28,4 +28,12 @@
         <light>0x1C9FE2</light>
         <dark>0x1C9FE2</dark>
     </color>
+    <color name="reviewBodyBg">
+        <light>0xF6F8FA</light>
+        <dark>0xF6F8FA</dark>
+    </color>
+    <color name="yellow">
+        <light>0xF8E545</light>
+        <dark>0xF8E545</dark>
+    </color>
 </resources>
