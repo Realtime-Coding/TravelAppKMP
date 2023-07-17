@@ -15,14 +15,6 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-//    jvm {
-//        sourceSets {
-//            named("jvmMain") {
-//                resources.srcDir("src/commonMain/resources") // <============= here
-//            }
-//        }
-//    }
-
     cocoapods {
         version = "1.0.0"
         summary = "Some description for the Shared Module"
@@ -32,8 +24,6 @@ kotlin {
         framework {
             baseName = "shared"
             isStatic = true
-//            export("dev.icerock.moko:resources:0.23.0")
-//            export("dev.icerock.moko:graphics:0.9.0") // toUIColor here
         }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
@@ -48,9 +38,7 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation("io.github.qdsfdhvh:image-loader:1.2.9")
                 api("dev.icerock.moko:resources:0.23.0")
-                api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
-//                api("com.arkivanov.decompose:decompose:2.0.0")
-//                api("com.arkivanov.decompose:extensions-compose-jetbrains:2.0.0")
+                api("dev.icerock.moko:resources-compose:0.23.0")
             }
         }
         val androidMain by getting {
