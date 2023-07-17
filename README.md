@@ -1,4 +1,4 @@
-# 🍲 Travel APP (Kotlin Multiplatform Mobile)
+#  Travel APP (Kotlin Multiplatform Mobile)
 
 Travel App is a simple **mobile application** built to demonstrate the use of
 _**Kotlin Multiplatform Mobile**_ for developing _Android and iOS_ applications
@@ -80,6 +80,7 @@ If you want to contribute to this library, you're always welcome!
 - [Philipp Lackner - How to Share Resources in KMM (Strings, Images, etc.)](https://www.youtube.com/watch?v=xtWzpLtCuY0):
   For understanding Share resources
 - [Abdul Basit - TravelApp-KMP](https://github.com/SEAbdulbasit/TravelApp-KMP/): For gradle understanding and custom navigation.
+- [Fimga Design By Michelle Setiyanti](https://www.figma.com/community/file/1155051579579231831): For cloning the design into compose.
 
 ## Want to create Project in KMM? Step by Step Documentations
 Notion file: [Documentations](https://shahzadafridi.notion.site/KMM-Journey-b1c86a41733c4b53bd459c8d10fb0a45?pvs=4)
