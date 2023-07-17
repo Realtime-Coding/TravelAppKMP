@@ -26,7 +26,7 @@ fun PrimaryButton(title: String, paddingValues: PaddingValues = PaddingValues())
     ) {
         Text(
             modifier = Modifier.padding(vertical = 16.dp),
-            text = "Book Now",
+            text = title,
             color = colorResource(SharedRes.colors.white),
             style = MaterialTheme.typography.titleLarge,
         )

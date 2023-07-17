@@ -8,7 +8,7 @@ import com.brikmas.travelapp.ui.screen.DestinationDetailScreen
 import com.brikmas.travelapp.ui.screen.HomeScreen
 
 @Composable
-internal fun App() {
+internal fun CommonView() {
     TravelAppTheme {
         val routeState = remember { mutableStateOf(Route()) }
         when (val state = routeState.value.screen) {

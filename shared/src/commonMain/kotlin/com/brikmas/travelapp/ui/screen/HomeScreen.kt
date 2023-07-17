@@ -52,13 +52,13 @@ fun HomeScreen(routeState: MutableState<Route>){
             ),
             ChildLayout(
                 contentType = HomeScreenContents.CATEGORY_SECTION.name,
-                content = { item ->
+                content = {
                     loadCategoryItems(categories)
                 }
             ),
             ChildLayout(
                 contentType = HomeScreenContents.DESTINATION_LARGE_SECTION.name,
-                content = { item ->
+                content = {
                     loadDestinationLargeItems(destinations) {
                         routeState.value = Route(
                             screen = Screen.DestinationDetail(it)
