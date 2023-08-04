@@ -1,6 +1,5 @@
 package com.brikmas.travelapp.ui.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -26,12 +26,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.brikmas.travelapp.SharedRes
 import com.brikmas.travelapp.model.Destination
-import com.brikmas.travelapp.model.destinations
+import com.brikmas.travelapp.util.ImageItem
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.painterResource
 
@@ -60,11 +59,9 @@ fun destinationSmallItem(
                 .padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(
+            ImageItem(
+                data = destination.thumbnail,
                 modifier = Modifier.width(95.dp).height(84.dp),
-                painter = painterResource(SharedRes.images.destination_thumbnail),
-                contentDescription = "thumbnail_destination",
-                contentScale = ContentScale.FillBounds
             )
             Column(
                 modifier = Modifier.padding(start = 14.dp)
@@ -137,12 +134,8 @@ fun destinationLargeItem(
             ),
         contentAlignment = Alignment.BottomStart
     ) {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = painterResource(SharedRes.images.destination_thumbnail),
-            contentDescription = "thumbnail_destination",
-            contentScale = ContentScale.FillBounds
-        )
+        ImageItem(destination.thumbnail)
+
         Row(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
