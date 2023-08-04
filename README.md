@@ -15,7 +15,7 @@ Currently, the app looks like this on the both platforms:
 
 #### ▶️ Android & Android
 
-https://github.com/Realtime-Coding/TravelAppKMM/assets/21146457/a3366c12-b019-44fa-bf70-a9424ca31d44
+https://github.com/Realtime-Coding/TravelAppKMP/assets/21146457/d8dc7372-4780-4145-a959-b223a819d321
 
 ---
 
