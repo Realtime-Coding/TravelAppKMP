@@ -2,6 +2,7 @@ package com.brikmas.travelapp.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,11 +23,11 @@ import com.brikmas.travelapp.model.Category
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.painterResource
 
-
 @Composable
-fun categoryItem(category: Category) {
+fun categoryItem(category: Category, onItemClicked: (Category) -> Unit) {
     Box(
         modifier = Modifier
+            .clickable { onItemClicked.invoke(category) }
             .background(
                 color = colorResource(SharedRes.colors.categoryBgColor),
                 shape = RoundedCornerShape(10.dp)
@@ -52,14 +53,14 @@ fun categoryItem(category: Category) {
 }
 
 @Composable
-fun loadCategoryItems(categories: List<Category>){
+fun loadCategoryItems(categories: List<Category>, onItemClicked: (Category) -> Unit){
     LazyRow(
         modifier = Modifier.padding(start = 16.dp, top = 22.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(
             items = categories,
-            itemContent = { categoryItem(it) }
+            itemContent = { categoryItem(it , onItemClicked) }
         )
     }
 }
