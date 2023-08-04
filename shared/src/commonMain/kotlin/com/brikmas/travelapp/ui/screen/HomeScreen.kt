@@ -7,13 +7,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.brikmas.travelapp.Navigation.Route
 import com.brikmas.travelapp.Navigation.Screen
 import com.brikmas.travelapp.SharedRes
+import com.brikmas.travelapp.data.FakeCategories
+import com.brikmas.travelapp.data.FakeDestinations
 import com.brikmas.travelapp.model.Destination
-import com.brikmas.travelapp.model.categories
-import com.brikmas.travelapp.model.destinations
 import com.brikmas.travelapp.ui.component.ChildLayout
 import com.brikmas.travelapp.ui.component.LoadItemAfterSafeCast
 import com.brikmas.travelapp.ui.component.TitleWithViewAllItem
@@ -34,7 +38,7 @@ enum class HomeScreenContents{
 @Composable
 fun HomeScreen(routeState: MutableState<Route>){
     Surface(modifier = Modifier.fillMaxWidth()) {
-
+        var destinations by remember { mutableStateOf(FakeDestinations.destinations) }
         VerticalScrollLayout(
             modifier = Modifier.fillMaxSize()
                 .background(color = MaterialTheme.colorScheme.background),
@@ -53,7 +57,14 @@ fun HomeScreen(routeState: MutableState<Route>){
             ChildLayout(
                 contentType = HomeScreenContents.CATEGORY_SECTION.name,
                 content = {
-                    loadCategoryItems(categories)
+                    loadCategoryItems(FakeCategories.categories) { category ->
+                        when(category.title)  {
+                            "All" -> destinations = FakeDestinations.destinations
+                            else -> destinations = arrayListOf<Destination>().apply {
+                                addAll(FakeDestinations.destinations.filter { it.category == category })
+                            }
+                        }
+                    }
                 }
             ),
             ChildLayout(
@@ -74,12 +85,13 @@ fun HomeScreen(routeState: MutableState<Route>){
             ),
             ChildLayout(
                 contentType = HomeScreenContents.DESTINATION_SMALL_SECTION.name,
-                items = destinations,
+                items = FakeDestinations.destinations,
                 content = { item ->
                     LoadItemAfterSafeCast<Destination>(item) {
                         destinationSmallItem(it) {
                             routeState.value = Route(
-                                screen = Screen.DestinationDetail(it)
+                                screen = Screen.DestinationDetail(it),
+                                prev = Screen.Home
                             )
                         }
                     }

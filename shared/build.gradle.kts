@@ -36,9 +36,10 @@ kotlin {
                 implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation("io.github.qdsfdhvh:image-loader:1.2.9")
                 api("dev.icerock.moko:resources:0.23.0")
                 api("dev.icerock.moko:resources-compose:0.23.0")
+                api("media.kamel:kamel-image:0.7.0")
+                api("io.github.qdsfdhvh:image-loader:1.6.3")
             }
         }
         val androidMain by getting {
@@ -59,9 +60,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
         }
         val desktopMain by getting {
-            dependencies {
-                implementation(compose.desktop.common)
-            }
+            dependsOn(commonMain)
         }
     }
 }

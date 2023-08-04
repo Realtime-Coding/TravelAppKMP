@@ -36,4 +36,8 @@
         <light>0xF8E545</light>
         <dark>0xF8E545</dark>
     </color>
+    <color name="red">
+        <light>0xFF2828</light>
+        <dark>0xFF2828</dark>
+    </color>
 </resources>

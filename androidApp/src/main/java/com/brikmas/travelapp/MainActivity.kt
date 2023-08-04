@@ -11,13 +11,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainView()
+            App()
         }
     }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-     MainView()
 }
