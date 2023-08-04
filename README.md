@@ -31,17 +31,21 @@ https://github.com/Realtime-Coding/TravelAppKMP/assets/21146457/d8dc7372-4780-41
 ## TODOs
 
 ### ✅ Completed
-- [x] Home screen UI
-- [x] Destination Detail screen UI
-- [x] Mocko resources e-g images, strings and fonts
-- [x] Custom Navigation (Later will use decompile library for navigation)
+- [x] Home screen UI.
+- [x] Destination Detail screen UI.
+- [x] Favorite Detail screen UI.
+- [x] Image loading from Url.
+- [x] Bottom Navigation Menu.
+- [x] Mocko resources e-g images, strings and fonts.
+- [x] Custom Navigation (Later will use decompile library for navigation).
 
 ### 🚧 Work in progress
 
+- [ ] Cart Screen Design.
+- [ ] Profile Screen Design.
 - [ ] SQLite setup for adding favorites.
-- [ ] Add to Cart Screen UI
 - [ ] Switch for dark/light theme.
-- [ ] Shifting content to github repo then fetch details through ktor client library
+- [ ] Shifting content to github repo then fetch details through ktor client library.
 
 ## Project structure 
 
