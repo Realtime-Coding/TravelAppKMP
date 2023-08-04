@@ -3,6 +3,7 @@ package com.brikmas.travelapp.ui.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -12,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.brikmas.travelapp.Navigation.Route
 import com.brikmas.travelapp.Navigation.Screen
 import com.brikmas.travelapp.SharedRes
@@ -26,6 +28,7 @@ import com.brikmas.travelapp.ui.component.destinationSmallItem
 import com.brikmas.travelapp.ui.component.homeHeader
 import com.brikmas.travelapp.ui.component.loadCategoryItems
 import com.brikmas.travelapp.ui.component.loadDestinationLargeItems
+import com.brikmas.travelapp.util.BOTTOM_NAV_SPACE
 
 enum class HomeScreenContents{
     HEADER_SECTION,
@@ -37,7 +40,7 @@ enum class HomeScreenContents{
 }
 @Composable
 fun HomeScreen(routeState: MutableState<Route>){
-    Surface(modifier = Modifier.fillMaxWidth()) {
+    Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         var destinations by remember { mutableStateOf(FakeDestinations.destinations) }
         VerticalScrollLayout(
             modifier = Modifier.fillMaxSize()
@@ -72,7 +75,8 @@ fun HomeScreen(routeState: MutableState<Route>){
                 content = {
                     loadDestinationLargeItems(destinations) {
                         routeState.value = Route(
-                            screen = Screen.DestinationDetail(it)
+                            screen = Screen.DestinationDetail(it),
+                            prev = Screen.Home
                         )
                     }
                 }
@@ -96,7 +100,7 @@ fun HomeScreen(routeState: MutableState<Route>){
                         }
                     }
                 }
-            ),
+            )
         )
     }
 }

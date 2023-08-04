@@ -22,6 +22,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.brikmas.travelapp.Navigation.Route
+import com.brikmas.travelapp.Navigation.Screen
 import com.brikmas.travelapp.SharedRes
 import com.brikmas.travelapp.model.MenuItem
 import com.brikmas.travelapp.util.AnimateVisibility
@@ -30,10 +32,10 @@ import dev.icerock.moko.resources.compose.painterResource
 
 
 val menuItems = arrayListOf<MenuItem>().apply {
-    add(MenuItem(Menu.HOME, "Home", SharedRes.images.menu_home))
-    add(MenuItem(Menu.FAVORITE, "Favorite", SharedRes.images.menu_fav))
-    add(MenuItem(Menu.CART, "Cart", SharedRes.images.menu_cart))
-    add(MenuItem(Menu.PROFILE, "Profile", SharedRes.images.menu_profile))
+    add(MenuItem(Menu.HOME, "Home", SharedRes.images.menu_home, Screen.Home))
+    add(MenuItem(Menu.FAVORITE, "Favorite", SharedRes.images.menu_fav,Screen.Favorite))
+    add(MenuItem(Menu.CART, "Cart", SharedRes.images.menu_cart,Screen.Cart))
+    add(MenuItem(Menu.PROFILE, "Profile", SharedRes.images.menu_profile,Screen.Profile))
 }
 
 enum class Menu(index: Int) {
@@ -46,7 +48,7 @@ enum class Menu(index: Int) {
 @Composable
 private fun BottomMenuItem(
     menuItem: MenuItem,
-    rememberMenuItem: MutableState<MenuItem>,
+    route: MutableState<Route>,
     onItemClicked: (MenuItem) -> Unit
 ) {
     Column(
@@ -57,10 +59,10 @@ private fun BottomMenuItem(
             modifier = Modifier.size(34.dp).clickable { onItemClicked.invoke(menuItem) },
             painter = painterResource(menuItem.icon),
             contentDescription = menuItem.title,
-            tint = colorResource(if (rememberMenuItem.value == menuItem) SharedRes.colors.primaryColor else SharedRes.colors.secondTextColor)
+            tint = colorResource(if (route.value.screen == menuItem.screen) SharedRes.colors.primaryColor else SharedRes.colors.secondTextColor)
         )
         AnimateVisibility(
-            visible = rememberMenuItem.value == menuItem,
+            visible = route.value.screen == menuItem.screen,
             modifier = Modifier
                 .wrapContentSize(Alignment.BottomStart)
         ) {
@@ -79,10 +81,10 @@ private fun BottomMenuItem(
 @Composable
 fun BottomMenuBar(
     modifier: Modifier = Modifier,
+    route: MutableState<Route>,
     menuItems: List<MenuItem>,
     onItemClicked: (MenuItem) -> Unit,
 ) {
-    val selectedMenuItem = remember { mutableStateOf(menuItems.first()) }
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -98,9 +100,8 @@ fun BottomMenuBar(
             items(
                 items = menuItems,
                 itemContent = { item ->
-                    BottomMenuItem(item,selectedMenuItem) {
+                    BottomMenuItem(item,route) {
                         onItemClicked.invoke(it)
-                        selectedMenuItem.value = it
                     }
                 }
             )

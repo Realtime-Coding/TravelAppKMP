@@ -28,12 +28,13 @@ import com.brikmas.travelapp.model.Destination
 import com.brikmas.travelapp.ui.component.LoadItemAfterSafeCast
 import com.brikmas.travelapp.ui.component.TitleWithViewAllItem
 import com.brikmas.travelapp.ui.component.destinationSmallItem
+import com.brikmas.travelapp.util.BOTTOM_NAV_SPACE
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
 fun FavoriteScreen(routeState: MutableState<Route>) {
-    Surface(modifier = Modifier.fillMaxWidth()) {
+    Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         LazyColumn(
             modifier = Modifier.fillMaxSize()
                 .background(color = MaterialTheme.colorScheme.background)

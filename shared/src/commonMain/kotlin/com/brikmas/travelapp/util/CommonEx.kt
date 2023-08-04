@@ -30,6 +30,8 @@ import com.seiko.imageloader.model.ImageResult
 import com.seiko.imageloader.rememberImageAction
 import com.seiko.imageloader.rememberImageActionPainter
 
+val BOTTOM_NAV_SPACE = 90.dp
+
 @Composable
 fun ImageItem(
     data: Any,

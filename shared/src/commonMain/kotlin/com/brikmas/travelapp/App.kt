@@ -57,7 +57,7 @@ internal fun CommonView() {
                 modifier = Modifier
                     .wrapContentSize(Alignment.BottomStart)
             ) {
-                BottomMenuBar(menuItems = menuItems) {
+                BottomMenuBar(menuItems = menuItems, route = routeState) {
                     when (it.item) {
                         Menu.HOME -> routeState.value = Route(screen = Screen.Home)
                         Menu.FAVORITE -> routeState.value = Route(screen = Screen.Favorite)
