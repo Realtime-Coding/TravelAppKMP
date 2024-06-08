@@ -10,36 +10,41 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import Navigation.Route
-import Navigation.Screen
-import model.MenuItem
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 import util.AnimateVisibility
 import org.jetbrains.compose.resources.painterResource
 import theme.White
 import theme.primaryColor
 import theme.secondTextColor
 import travelbuddy.composeapp.generated.resources.Res
-import travelbuddy.composeapp.generated.resources.menu_cart
-import travelbuddy.composeapp.generated.resources.menu_fav
-import travelbuddy.composeapp.generated.resources.menu_home
-import travelbuddy.composeapp.generated.resources.menu_profile
+import travelbuddy.composeapp.generated.resources.star
+import ui.screen.CartScreen
+import ui.screen.FavoriteScreen
+import ui.screen.HomeScreen
+import ui.screen.ProfileScreen
 
 
-val menuItems = arrayListOf<MenuItem>().apply {
-    add(MenuItem(Menu.HOME, "Home", Res.drawable.menu_home, Screen.Home))
-    add(MenuItem(Menu.FAVORITE, "Favorite", Res.drawable.menu_fav, Screen.Favorite))
-    add(MenuItem(Menu.CART, "Cart", Res.drawable.menu_cart, Screen.Cart))
-    add(MenuItem(Menu.PROFILE, "Profile", Res.drawable.menu_profile, Screen.Profile))
+val menuItems = arrayListOf<Tab>().apply {
+    add(HomeScreen)
+    add(FavoriteScreen)
+    add(CartScreen)
+    add(ProfileScreen)
 }
 
 enum class Menu(index: Int) {
@@ -51,22 +56,27 @@ enum class Menu(index: Int) {
 
 @Composable
 private fun BottomMenuItem(
-    menuItem: MenuItem,
-    route: MutableState<Route>,
-    onItemClicked: (MenuItem) -> Unit
+    tab: Tab,
+    tabNavigator: TabNavigator,
+    onItemClicked: @Composable (Tab) -> Unit
 ) {
+    var visible by remember { mutableStateOf(false) }
+    if (visible) {
+        onItemClicked.invoke(tab)
+        visible = false
+    }
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
-            modifier = Modifier.size(34.dp).clickable { onItemClicked.invoke(menuItem) },
-            painter = painterResource(menuItem.icon),
-            contentDescription = menuItem.title,
-            tint = if (route.value.screen == menuItem.screen) primaryColor else secondTextColor
+            modifier = Modifier.size(34.dp).clickable { visible = true },
+            painter = tab.options.icon ?: painterResource(Res.drawable.star),
+            contentDescription = tab.options.title,
+            tint = if (tabNavigator.current == tab) primaryColor else secondTextColor
         )
         AnimateVisibility(
-            visible = route.value.screen == menuItem.screen,
+            visible = tabNavigator.current == tab,
             modifier = Modifier
                 .wrapContentSize(Alignment.BottomStart)
         ) {
@@ -85,9 +95,8 @@ private fun BottomMenuItem(
 @Composable
 fun BottomMenuBar(
     modifier: Modifier = Modifier,
-    route: MutableState<Route>,
-    menuItems: List<MenuItem>,
-    onItemClicked: (MenuItem) -> Unit,
+    tabs: List<Tab>,
+    onItemClicked: @Composable (Tab) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -102,13 +111,20 @@ fun BottomMenuBar(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             items(
-                items = menuItems,
+                items = tabs,
                 itemContent = { item ->
-                    BottomMenuItem(item,route) {
-                        onItemClicked.invoke(it)
-                    }
+                    TabNavigationItem(item,onItemClicked)
                 }
             )
         }
     }
 }
+
+@Composable
+private fun LazyItemScope.TabNavigationItem(tab: Tab, onItemClicked: @Composable (Tab) -> Unit) {
+    val tabNavigator = LocalTabNavigator.current
+    BottomMenuItem(tab,tabNavigator) {
+        onItemClicked.invoke(it)
+    }
+}
+

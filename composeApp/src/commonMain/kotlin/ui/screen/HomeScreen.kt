@@ -16,16 +16,25 @@ import androidx.compose.ui.Modifier
 import Navigation.Route
 import Navigation.Screen
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabOptions
 import coil3.compose.AsyncImage
 import data.FakeCategories
 import data.FakeDestinations
 import model.Destination
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.arrow_forward
+import travelbuddy.composeapp.generated.resources.home_tab
+import travelbuddy.composeapp.generated.resources.menu_home
 import ui.component.ChildLayout
 import ui.component.LoadItemAfterSafeCast
 import ui.component.TitleWithViewAllItem
@@ -44,12 +53,28 @@ enum class HomeScreenContents{
     DESTINATION_SMALL_SECTION,
 }
 
-data object HomeScreen : cafe.adriel.voyager.core.screen.Screen {
+data object HomeScreen : Tab {
+    override val options: TabOptions
+        @Composable
+        get() {
+            val title = stringResource(Res.string.home_tab)
+            val icon = painterResource(Res.drawable.menu_home)
+
+            return remember {
+                TabOptions(
+                    index = 0u,
+                    title = title,
+                    icon = icon
+                )
+            }
+        }
+
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         HomeScreenView(navigator)
     }
+
 }
 
 

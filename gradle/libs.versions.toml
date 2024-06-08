@@ -50,6 +50,7 @@ voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutinesSwing" }
+voyager-tab-navigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -66,6 +66,8 @@ kotlin {
             implementation(libs.coil.mp)
             implementation(libs.coil.network.ktor)
             implementation(libs.voyager.navigator)
+            implementation(libs.voyager.tab.navigator)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

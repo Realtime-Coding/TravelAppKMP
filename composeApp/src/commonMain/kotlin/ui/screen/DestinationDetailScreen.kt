@@ -52,6 +52,7 @@ import ui.component.destinationDetailHeader
 import util.ImageItem
 
 data class DestinationDetailScreen(val destination: Destination) : Screen {
+
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow

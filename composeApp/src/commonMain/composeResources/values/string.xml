@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="home_tab">Home</string>
+    <string name="fav_tab">Favourite</string>
+    <string name="profile_tab">Profile</string>
+    <string name="cart_tab">Cart</string>
+</resources>
