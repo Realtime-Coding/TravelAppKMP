@@ -32,7 +32,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import Navigation.Route
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
@@ -52,7 +51,6 @@ import ui.component.destinationDetailHeader
 import util.ImageItem
 
 data class DestinationDetailScreen(val destination: Destination) : Screen {
-
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow

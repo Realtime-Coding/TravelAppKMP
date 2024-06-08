@@ -30,7 +30,7 @@ import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.fav_tab
 import travelbuddy.composeapp.generated.resources.menu_fav
 
-data object FavoriteScreen : Tab {
+data object FavoriteTab : Tab {
 
     override val options: TabOptions
         @Composable

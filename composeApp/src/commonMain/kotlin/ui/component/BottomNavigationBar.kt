@@ -34,24 +34,17 @@ import theme.primaryColor
 import theme.secondTextColor
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.star
-import ui.screen.CartScreen
-import ui.screen.FavoriteScreen
-import ui.screen.HomeScreen
-import ui.screen.ProfileScreen
+import ui.screen.CartTab
+import ui.screen.FavoriteTab
+import ui.screen.HomeTab
+import ui.screen.ProfileTab
 
 
-val menuItems = arrayListOf<Tab>().apply {
-    add(HomeScreen)
-    add(FavoriteScreen)
-    add(CartScreen)
-    add(ProfileScreen)
-}
-
-enum class Menu(index: Int) {
-    HOME(0),
-    FAVORITE(1),
-    CART(2),
-    PROFILE(3),
+val tabs = arrayListOf<Tab>().apply {
+    add(HomeTab)
+    add(FavoriteTab)
+    add(CartTab)
+    add(ProfileTab)
 }
 
 @Composable

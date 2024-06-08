@@ -3,29 +3,20 @@ package ui.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import Navigation.Route
-import Navigation.Screen
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import coil3.compose.AsyncImage
 import data.FakeCategories
 import data.FakeDestinations
 import model.Destination
@@ -53,7 +44,7 @@ enum class HomeScreenContents{
     DESTINATION_SMALL_SECTION,
 }
 
-data object HomeScreen : Tab {
+data object HomeTab : Tab {
     override val options: TabOptions
         @Composable
         get() {
@@ -71,10 +62,17 @@ data object HomeScreen : Tab {
 
     @Composable
     override fun Content() {
+        Navigator(HomeScreen)
+    }
+
+}
+
+object HomeScreen : Screen {
+    @Composable
+    override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         HomeScreenView(navigator)
     }
-
 }
 
 

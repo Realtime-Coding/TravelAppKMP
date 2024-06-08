@@ -5,9 +5,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import cafe.adriel.voyager.navigator.defaultNavigatorSaver
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import coil3.ImageLoader
@@ -21,12 +19,11 @@ import coil3.util.DebugLogger
 import okio.FileSystem
 import theme.TravelAppTheme
 import ui.component.BottomMenuBar
-import ui.component.Menu
-import ui.component.menuItems
-import ui.screen.CartScreen
-import ui.screen.FavoriteScreen
-import ui.screen.HomeScreen
-import ui.screen.ProfileScreen
+import ui.component.tabs
+import ui.screen.CartTab
+import ui.screen.FavoriteTab
+import ui.screen.HomeTab
+import ui.screen.ProfileTab
 import util.AnimateVisibility
 
 @Composable
@@ -39,35 +36,29 @@ internal fun App() {
 
         val visible by remember { mutableStateOf(true) }
 
-        TabNavigator(HomeScreen) {
+        TabNavigator(HomeTab) {
             Scaffold(
                 content = {
                     CurrentTab()
                 },
                 bottomBar = {
-//                    BottomNavigation {
-//                        TabNavigationItem(HomeTab)
-//                        TabNavigationItem(FavoritesTab)
-//                        TabNavigationItem(ProfileTab)
-//                    }
                     AnimateVisibility(
                         visible = visible,
                         modifier = Modifier
                             .wrapContentSize(Alignment.BottomStart)
                     ) {
-                        BottomMenuBar(tabs = menuItems) {
+                        BottomMenuBar(tabs = tabs) {
                             when (it) {
-                                HomeScreen -> LocalNavigator.currentOrThrow.push(HomeScreen)
-                                FavoriteScreen -> LocalNavigator.currentOrThrow.push(FavoriteScreen)
-                                CartScreen -> LocalNavigator.currentOrThrow.push(CartScreen)
-                                ProfileScreen -> LocalNavigator.currentOrThrow.push(ProfileScreen)
+                                HomeTab -> LocalNavigator.currentOrThrow.push(HomeTab)
+                                FavoriteTab -> LocalNavigator.currentOrThrow.push(FavoriteTab)
+                                CartTab -> LocalNavigator.currentOrThrow.push(CartTab)
+                                ProfileTab -> LocalNavigator.currentOrThrow.push(ProfileTab)
                             }
                         }
                     }
                 }
             )
         }
-        //Navigator(HomeScreen)
     }
 }
 

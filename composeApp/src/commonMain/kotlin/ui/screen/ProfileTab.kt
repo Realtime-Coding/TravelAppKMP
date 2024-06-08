@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
@@ -18,17 +18,16 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import theme.textColor
 import travelbuddy.composeapp.generated.resources.Res
-import travelbuddy.composeapp.generated.resources.cart_tab
-import travelbuddy.composeapp.generated.resources.menu_cart
-import travelbuddy.composeapp.generated.resources.menu_home
+import travelbuddy.composeapp.generated.resources.menu_profile
+import travelbuddy.composeapp.generated.resources.profile_tab
 
-data object CartScreen : Tab {
+data object ProfileTab : Tab {
 
     override val options: TabOptions
         @Composable
         get() {
-            val title = stringResource(Res.string.cart_tab)
-            val icon = painterResource(Res.drawable.menu_cart)
+            val title = stringResource(Res.string.profile_tab)
+            val icon = painterResource(Res.drawable.menu_profile)
 
             return remember {
                 TabOptions(
@@ -42,18 +41,18 @@ data object CartScreen : Tab {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        CartScreenView()
+        ProfileScreenView(navigator)
     }
 }
 
 @Composable
-fun CartScreenView(){
+fun ProfileScreenView(navigator: Navigator){
     Surface(modifier = Modifier.fillMaxWidth()) {
         Text(
             modifier = Modifier.wrapContentSize(Alignment.Center),
-            text = "Cart",
+            text = "Profile",
             color = textColor,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodySmall
         )
     }
 }
