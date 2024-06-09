@@ -15,7 +15,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,10 +26,10 @@ import model.Destination
 import org.jetbrains.compose.resources.painterResource
 import theme.White
 import theme.craneRegular
-import theme.primaryColor
-import theme.red
-import theme.secondTextColor
-import theme.textColor
+import theme.PrimaryColor
+import theme.Red
+import theme.SecondTextColor
+import theme.TextColor
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.back
 import travelbuddy.composeapp.generated.resources.ci_location
@@ -55,7 +54,7 @@ fun homeHeader() {
         ) {
             Text(
                 text = "Current Location",
-                color = secondTextColor,
+                color = SecondTextColor,
                 fontFamily = craneRegular,
                 style = MaterialTheme.typography.bodySmall
             )
@@ -67,12 +66,12 @@ fun homeHeader() {
                     modifier = Modifier.size(16.dp),
                     painter = painterResource(Res.drawable.ci_location),
                     contentDescription = null,
-                    tint = primaryColor
+                    tint = PrimaryColor
                 )
                 Text(
                     modifier = Modifier.padding(start = 8.dp),
                     text = "Denpasar, Bali",
-                    color = textColor,
+                    color = TextColor,
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -119,7 +118,7 @@ fun destinationDetailHeader(navigator: Navigator, destination: Destination) {
                     }
                 }
         ) {
-            val tintColor = if (isFav.value) red else textColor
+            val tintColor = if (isFav.value) Red else TextColor
             Icon(
                 modifier = Modifier.padding(6.dp),
                 painter = painterResource(Res.drawable.menu_fav),

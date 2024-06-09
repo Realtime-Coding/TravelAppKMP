@@ -7,7 +7,7 @@ object FakeDestinations {
         add(
             Destination(
                 id = 1,
-                thumbnail = "https://www.linkpicture.com/q/vladimir-haltakov-PMfuunAfF2w-unsplash.jpg",
+                thumbnail = "https://images.unsplash.com/photo-1519865885898-a54a6f2c7eea?q=80&w=3458&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 title = "Indonesia Mountain",
                 description = "The mighty Rinjani mountain of Gunung Rinjani is a massive volcano which towers over the island of Lombok. A climb to the top is one of the most exhilarating experiences you can have in Indonesia. At 3,726 meters tall, Gunung Rinjani is the second highest mountain in Indonesia...",
                 rating = 4.3f,

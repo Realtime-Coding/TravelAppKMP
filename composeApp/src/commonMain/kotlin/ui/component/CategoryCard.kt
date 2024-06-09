@@ -20,9 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import model.Category
 import org.jetbrains.compose.resources.painterResource
-import theme.categoryBgColor
-import theme.secondTextColor
-import travelbuddy.composeapp.generated.resources.Res
+import theme.CategoryBgColor
+import theme.SecondTextColor
 
 @Composable
 fun categoryItem(category: Category, onItemClicked: (Category) -> Unit) {
@@ -30,7 +29,7 @@ fun categoryItem(category: Category, onItemClicked: (Category) -> Unit) {
         modifier = Modifier
             .clickable { onItemClicked.invoke(category) }
             .background(
-                color = categoryBgColor,
+                color = CategoryBgColor,
                 shape = RoundedCornerShape(10.dp)
             )
     ) {
@@ -46,7 +45,7 @@ fun categoryItem(category: Category, onItemClicked: (Category) -> Unit) {
             Text(
                 modifier = Modifier.padding(start = 8.dp),
                 text = category.title,
-                color = secondTextColor,
+                color = SecondTextColor,
                 style = MaterialTheme.typography.bodySmall
             )
         }

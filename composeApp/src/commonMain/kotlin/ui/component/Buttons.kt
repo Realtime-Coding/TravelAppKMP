@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import theme.White
-import theme.primaryColor
+import theme.PrimaryColor
 
 @Composable
 fun PrimaryButton(title: String, paddingValues: PaddingValues = PaddingValues()){
@@ -21,7 +21,7 @@ fun PrimaryButton(title: String, paddingValues: PaddingValues = PaddingValues())
         Modifier
             .padding(paddingValues)
             .fillMaxWidth()
-            .background(color = primaryColor, shape = RoundedCornerShape(size = 8.dp)),
+            .background(color = PrimaryColor, shape = RoundedCornerShape(size = 8.dp)),
         contentAlignment = Alignment.Center
     ) {
         Text(

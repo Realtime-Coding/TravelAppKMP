@@ -17,6 +17,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 
+val BOTTOM_NAV_SPACE = 90.dp
+
 @Composable
 fun ImageItem(
     data: Any,

@@ -21,22 +21,27 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import data.FakeFavorites
 import model.Destination
 import util.ImageItem
 import org.jetbrains.compose.resources.painterResource
 import theme.White
-import theme.categoryBgColor
-import theme.primaryColor
-import theme.secondTextColor
-import theme.textColor
-import theme.thirdTextColor
+import theme.CategoryBgColor
+import theme.PrimaryColor
+import theme.Red
+import theme.SecondTextColor
+import theme.TextColor
+import theme.ThirdTextColor
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.ci_location
+import travelbuddy.composeapp.generated.resources.menu_fav
 
 @Composable
 fun destinationSmallItem(
@@ -50,8 +55,8 @@ fun destinationSmallItem(
             .shadow(
                 elevation = 4.dp,
                 shape = RoundedCornerShape(12.dp),
-                ambientColor = primaryColor,
-                spotColor = primaryColor
+                ambientColor = PrimaryColor,
+                spotColor = PrimaryColor
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = White),
@@ -60,19 +65,25 @@ fun destinationSmallItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            ImageItem(
-                data = destination.thumbnail,
-                modifier = Modifier.width(95.dp).height(84.dp),
-            )
+            Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                colors = CardDefaults.cardColors(containerColor = White),
+                shape = RoundedCornerShape(12.dp),
+            ) {
+                ImageItem(
+                    data = destination.thumbnail,
+                    modifier = Modifier.width(140.dp).height(110.dp),
+                )
+            }
             Column(
                 modifier = Modifier.padding(start = 14.dp)
             ) {
                 Text(
                     text = destination.title,
-                    color = textColor,
+                    color = TextColor,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Row(
@@ -83,20 +94,20 @@ fun destinationSmallItem(
                         modifier = Modifier.size(16.dp),
                         painter = painterResource(Res.drawable.ci_location),
                         contentDescription = null,
-                        tint = primaryColor
+                        tint = PrimaryColor
                     )
                     Text(
                         modifier = Modifier.padding(start = 8.dp),
                         text = destination.location,
-                        color = thirdTextColor,
-                        style = MaterialTheme.typography.bodySmall
+                        color = ThirdTextColor,
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
                 Text(
                     modifier = Modifier.padding(top = 6.dp),
                     text = destination.description,
-                    color = secondTextColor,
-                    style = MaterialTheme.typography.bodySmall,
+                    color = SecondTextColor,
+                    style = MaterialTheme.typography.labelSmall,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2
                 )
@@ -106,14 +117,14 @@ fun destinationSmallItem(
                 ) {
                     Text(
                         text = destination.price,
-                        color = textColor,
+                        color = TextColor,
                         style = MaterialTheme.typography.bodySmall
                     )
                     Text(
                         modifier = Modifier.padding(start = 4.dp),
                         text = "/${destination.type}",
-                        color = secondTextColor,
-                        style = MaterialTheme.typography.bodySmall
+                        color = SecondTextColor,
+                        style = MaterialTheme.typography.labelSmall
                     )
                 }
             }
@@ -126,62 +137,117 @@ fun destinationLargeItem(
     destination: Destination,
     onItemClicked: (Destination) -> Unit
 ) {
-    Box(
+
+    val isFav = remember { mutableStateOf(FakeFavorites.checkFavorite(destination)) }
+
+    Card (
         modifier = Modifier
             .width(222.dp)
-            .height(143.dp)
+            .height(240.dp)
             .padding(start = 16.dp)
             .clickable { onItemClicked.invoke(destination) }
+            .shadow(
+                elevation = 4.dp,
+                shape = RoundedCornerShape(12.dp),
+                ambientColor = PrimaryColor,
+                spotColor = PrimaryColor
+            )
             .background(
-                color = categoryBgColor,
+                color = CategoryBgColor,
                 shape = RoundedCornerShape(10.dp)
             ),
-        contentAlignment = Alignment.BottomStart
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = White),
     ) {
-        ImageItem(destination.thumbnail)
-
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Column {
-                Text(
-                    text = destination.title,
-                    color = White,
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Row(
-                    modifier = Modifier.padding(top = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
+
+            Box(
+                modifier = Modifier
+                    .width(240.dp)
+                    .height(200.dp)
+                    .clickable { onItemClicked.invoke(destination) }
+                    .background(
+                        color = CategoryBgColor,
+                        shape = RoundedCornerShape(10.dp)
+                    ),
+                contentAlignment = Alignment.BottomStart
+            ) {
+
+                ImageItem(destination.thumbnail)
+
+                Box(
+                    modifier = Modifier.size(45.dp)
+                        .padding(8.dp)
+                        .background(
+                            color = White,
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .align(Alignment.TopEnd)
+                        .clickable {
+                            if (isFav.value) {
+                                FakeFavorites.removeFavorite(destination)
+                                isFav.value = false
+                            } else {
+                                FakeFavorites.addFavorite(destination)
+                                isFav.value = true
+                            }
+                        }
                 ) {
+                    val tintColor = if (isFav.value) Red else TextColor
                     Icon(
-                        modifier = Modifier.size(16.dp),
-                        painter = painterResource(Res.drawable.ci_location),
-                        contentDescription = null,
-                        tint = White
+                        modifier = Modifier.padding(6.dp),
+                        painter = painterResource(Res.drawable.menu_fav),
+                        tint = tintColor,
+                        contentDescription = null
                     )
+                }
+
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(horizontal = 14.dp, vertical = 12.dp)
+                ) {
+
                     Text(
-                        modifier = Modifier.padding(start = 8.dp),
-                        text = destination.location,
+                        text = destination.title,
                         color = White,
                         style = MaterialTheme.typography.bodySmall
                     )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = destination.price,
+                            color = White,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                        Text(
+                            text = "/${destination.type}",
+                            color = White,
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
                 }
             }
-            Column(
-                modifier = Modifier.padding(top = 4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+
+            Row(
+                modifier = Modifier.padding(start = 14.dp, end = 14.dp, top = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = destination.price,
-                    color = White,
-                    style = MaterialTheme.typography.bodySmall
+                Icon(
+                    modifier = Modifier.size(16.dp),
+                    painter = painterResource(Res.drawable.ci_location),
+                    contentDescription = null,
+                    tint = TextColor
                 )
                 Text(
-                    text = "/${destination.type}",
-                    color = White,
-                    style = MaterialTheme.typography.bodySmall
+                    modifier = Modifier.padding(start = 8.dp),
+                    text = destination.location,
+                    color = TextColor,
+                    style = MaterialTheme.typography.labelMedium
                 )
             }
         }

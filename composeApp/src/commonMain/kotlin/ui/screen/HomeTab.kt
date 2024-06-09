@@ -3,6 +3,7 @@ package ui.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -34,6 +35,7 @@ import ui.component.destinationSmallItem
 import ui.component.homeHeader
 import ui.component.loadCategoryItems
 import ui.component.loadDestinationLargeItems
+import util.BOTTOM_NAV_SPACE
 
 enum class HomeScreenContents{
     HEADER_SECTION,
@@ -78,7 +80,7 @@ object HomeScreen : Screen {
 
 @Composable
 fun HomeScreenView(navigator: Navigator){
-    Surface(modifier = Modifier.fillMaxWidth()) {
+    Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         var destinations by remember { mutableStateOf(FakeDestinations.destinations) }
         VerticalScrollLayout(
             modifier = Modifier.fillMaxSize()

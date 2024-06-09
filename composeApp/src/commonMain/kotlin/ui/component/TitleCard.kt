@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import theme.primaryColor
-import theme.reviewBodyBg
-import theme.secondTextColor
-import theme.textColor
-import theme.thirdTextColor
-import theme.yellow
+import theme.PrimaryColor
+import theme.ReviewBodyBg
+import theme.SecondTextColor
+import theme.TextColor
+import theme.ThirdTextColor
+import theme.Yellow
 
 
 @Composable
@@ -34,7 +34,7 @@ fun TitleWithViewAllItem(title: String, label: String, icon: DrawableResource) {
     ) {
         Text(
             text = title,
-            color = textColor,
+            color = TextColor,
             style = MaterialTheme.typography.bodySmall
         )
         Row(
@@ -43,14 +43,14 @@ fun TitleWithViewAllItem(title: String, label: String, icon: DrawableResource) {
         ) {
             Text(
                 text = label,
-                color = thirdTextColor,
+                color = ThirdTextColor,
                 style = MaterialTheme.typography.bodySmall
             )
             Icon(
                 modifier = Modifier.size(24.dp).padding(start = 8.dp),
                 painter = painterResource(icon),
                 contentDescription = null,
-                tint = primaryColor
+                tint = PrimaryColor
             )
         }
     }
@@ -65,12 +65,12 @@ fun TitleWithReview(title: String, label: String, icon: DrawableResource) {
     ) {
         Text(
             text = title,
-            color = textColor,
+            color = TextColor,
             style = MaterialTheme.typography.bodySmall
         )
         Box(
             modifier = Modifier
-                .background(color = reviewBodyBg, shape = RoundedCornerShape(4.dp))
+                .background(color = ReviewBodyBg, shape = RoundedCornerShape(4.dp))
         ) {
             Row(
                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
@@ -80,12 +80,12 @@ fun TitleWithReview(title: String, label: String, icon: DrawableResource) {
                     modifier = Modifier.size(14.dp),
                     painter = painterResource(icon),
                     contentDescription = null,
-                    tint = yellow
+                    tint = Yellow
                 )
                 Text(
                     modifier = Modifier.padding(start = 4.dp),
                     text = label,
-                    color = secondTextColor,
+                    color = SecondTextColor,
                     style = MaterialTheme.typography.bodySmall
                 )
             }

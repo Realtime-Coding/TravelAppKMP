@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -25,10 +26,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import ui.component.LoadItemAfterSafeCast
 import ui.component.destinationSmallItem
-import theme.textColor
+import theme.TextColor
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.fav_tab
 import travelbuddy.composeapp.generated.resources.menu_fav
+import util.BOTTOM_NAV_SPACE
 
 data object FavoriteTab : Tab {
 
@@ -49,14 +51,22 @@ data object FavoriteTab : Tab {
 
     @Composable
     override fun Content() {
+        Navigator(FavoriteScreen)
+    }
+}
+
+object FavoriteScreen : Screen {
+    @Composable
+    override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         FavoriteScreenView(navigator)
     }
 }
 
+
 @Composable
 fun FavoriteScreenView(navigator: Navigator) {
-    Surface(modifier = Modifier.fillMaxWidth()) {
+    Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         LazyColumn(
             modifier = Modifier.fillMaxSize()
                 .background(color = MaterialTheme.colorScheme.background)
@@ -65,7 +75,7 @@ fun FavoriteScreenView(navigator: Navigator) {
                 Text(
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp),
                     text = "Favorite Destinations",
-                    color = textColor,
+                    color = TextColor,
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center
                 )

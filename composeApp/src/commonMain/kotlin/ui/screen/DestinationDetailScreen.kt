@@ -39,9 +39,9 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import model.Destination
 import org.jetbrains.compose.resources.painterResource
 import theme.White
-import theme.primaryColor
-import theme.secondTextColor
-import theme.textColor
+import theme.PrimaryColor
+import theme.SecondTextColor
+import theme.TextColor
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.ci_location
 import travelbuddy.composeapp.generated.resources.star
@@ -108,7 +108,7 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             Column {
                 Text(
                     text = destination.title,
-                    color = textColor,
+                    color = TextColor,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Row(
@@ -119,13 +119,13 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
                         modifier = Modifier.size(16.dp),
                         painter = painterResource(Res.drawable.ci_location),
                         contentDescription = null,
-                        tint = primaryColor
+                        tint = PrimaryColor
                     )
                     Text(
                         modifier = Modifier.padding(start = 8.dp),
                         text = destination.location,
-                        color = primaryColor,
-                        style = MaterialTheme.typography.bodySmall
+                        color = PrimaryColor,
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
             }
@@ -135,14 +135,14 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             ) {
                 Text(
                     text = destination.price,
-                    color = textColor,
+                    color = TextColor,
                     style = MaterialTheme.typography.bodySmall,
                     fontSize = TextUnit(24f, TextUnitType.Sp)
                 )
                 Text(
                     text = "/${destination.type}",
-                    color = secondTextColor,
-                    style = MaterialTheme.typography.bodySmall
+                    color = SecondTextColor,
+                    style = MaterialTheme.typography.labelMedium
                 )
             }
         }
@@ -150,8 +150,8 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
         Text(
             modifier = Modifier.padding(start = 25.dp, top = 18.dp, end = 25.dp),
             text = destination.description,
-            color = secondTextColor,
-            style = MaterialTheme.typography.bodySmall,
+            color = SecondTextColor,
+            style = MaterialTheme.typography.labelSmall,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Justify
         )

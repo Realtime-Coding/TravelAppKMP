@@ -14,8 +14,10 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,8 +32,8 @@ import cafe.adriel.voyager.navigator.tab.TabNavigator
 import util.AnimateVisibility
 import org.jetbrains.compose.resources.painterResource
 import theme.White
-import theme.primaryColor
-import theme.secondTextColor
+import theme.PrimaryColor
+import theme.SecondTextColor
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.star
 import ui.screen.CartTab
@@ -66,20 +68,26 @@ private fun BottomMenuItem(
             modifier = Modifier.size(34.dp).clickable { visible = true },
             painter = tab.options.icon ?: painterResource(Res.drawable.star),
             contentDescription = tab.options.title,
-            tint = if (tabNavigator.current == tab) primaryColor else secondTextColor
+            tint = if (tabNavigator.current == tab) PrimaryColor else SecondTextColor
+        )
+        Text(
+            modifier = Modifier,
+            text = tab.options.title,
+            color = if (tabNavigator.current == tab) PrimaryColor else SecondTextColor,
+            style = MaterialTheme.typography.bodySmall
         )
         AnimateVisibility(
             visible = tabNavigator.current == tab,
             modifier = Modifier
                 .wrapContentSize(Alignment.BottomStart)
         ) {
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier
-                    .width(22.dp)
+                    .width(40.dp)
                     .padding(top = 4.dp)
-                    .background(color = primaryColor, shape = RoundedCornerShape(16.dp)),
+                    .background(color = PrimaryColor, shape = RoundedCornerShape(22.dp)),
                 thickness = 4.dp,
-                color = primaryColor
+                color = PrimaryColor
             )
         }
     }
@@ -100,7 +108,7 @@ fun BottomMenuBar(
             ),
     ) {
         LazyRow(
-            modifier = Modifier.fillMaxWidth().padding(vertical = 18.dp, horizontal = 40.dp),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp, horizontal = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             items(
