@@ -10,6 +10,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -30,6 +32,7 @@ import theme.TextColor
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.fav_tab
 import travelbuddy.composeapp.generated.resources.menu_fav
+import ui.viewmodel.HomeViewModel
 import util.BOTTOM_NAV_SPACE
 
 data object FavoriteTab : Tab {
@@ -65,7 +68,12 @@ object FavoriteScreen : Screen {
 
 
 @Composable
-fun FavoriteScreenView(navigator: Navigator) {
+fun FavoriteScreenView(
+    navigator: Navigator,
+    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel { HomeViewModel() },
+) {
+    val favorites by viewModel.favorites.collectAsState()
+
     Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         LazyColumn(
             modifier = Modifier.fillMaxSize()
@@ -86,9 +94,10 @@ fun FavoriteScreenView(navigator: Navigator) {
                 )
             }
             item {
-                FakeFavorites.favorites.forEach { item ->
+                favorites.forEach { item ->
                     LoadItemAfterSafeCast<Destination>(item) {
                         destinationSmallItem(it) {
+                            viewModel.setBottomNavBarVisible(false)
                             navigator.push(DestinationDetailScreen(it))
                         }
                     }

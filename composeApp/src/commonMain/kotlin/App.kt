@@ -4,6 +4,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.CurrentTab
@@ -25,17 +26,20 @@ import ui.screen.CartTab
 import ui.screen.FavoriteTab
 import ui.screen.HomeTab
 import ui.screen.ProfileTab
+import ui.viewmodel.HomeViewModel
 import util.AnimateVisibility
 
 @Composable
-internal fun App() {
+internal fun App(
+    viewModel: HomeViewModel = viewModel { HomeViewModel() }
+) {
     TravelAppTheme {
 
         setSingletonImageLoaderFactory { context ->
             getAsyncImageLoader(context)
         }
 
-        val visible by remember { mutableStateOf(true) }
+        val bottomNavBarVisibility by viewModel.bottomNavBarVisible.collectAsState()
 
         TabNavigator(HomeTab) {
             Scaffold(
@@ -44,7 +48,7 @@ internal fun App() {
                 },
                 bottomBar = {
                     AnimateVisibility(
-                        visible = visible,
+                        visible = bottomNavBarVisibility,
                         modifier = Modifier
                             .wrapContentSize(Alignment.BottomStart)
                     ) {

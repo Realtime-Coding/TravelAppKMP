@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import data.FakeFavorites
 import model.Destination
 import util.ImageItem
 import org.jetbrains.compose.resources.painterResource
@@ -135,10 +134,13 @@ fun destinationSmallItem(
 @Composable
 fun destinationLargeItem(
     destination: Destination,
-    onItemClicked: (Destination) -> Unit
+    onItemClicked: (Destination) -> Unit,
+    checkFavorite: (Destination) -> Boolean,
+    addFavorite: (Destination) -> Unit,
+    removeFavorite: (Destination) -> Unit,
 ) {
 
-    val isFav = remember { mutableStateOf(FakeFavorites.checkFavorite(destination)) }
+    val isFav = remember { mutableStateOf(checkFavorite(destination)) }
 
     Card (
         modifier = Modifier
@@ -187,10 +189,10 @@ fun destinationLargeItem(
                         .align(Alignment.TopEnd)
                         .clickable {
                             if (isFav.value) {
-                                FakeFavorites.removeFavorite(destination)
+                                removeFavorite(destination)
                                 isFav.value = false
                             } else {
-                                FakeFavorites.addFavorite(destination)
+                                addFavorite(destination)
                                 isFav.value = true
                             }
                         }
@@ -270,7 +272,10 @@ fun loadDestinationSmallItems(destinations: List<Destination>){
 @Composable
 fun loadDestinationLargeItems(
     destinations: List<Destination>,
-    onItemClicked: (Destination) -> Unit
+    onItemClicked: (Destination) -> Unit,
+    checkFavorite: (Destination) -> Boolean,
+    addFavorite: (Destination) -> Unit,
+    removeFavorite: (Destination) -> Unit,
 ){
     LazyRow(
         modifier = Modifier.padding(top = 22.dp),
@@ -281,7 +286,10 @@ fun loadDestinationLargeItems(
             itemContent = {
                 destinationLargeItem(
                     destination = it,
-                    onItemClicked = onItemClicked
+                    onItemClicked = onItemClicked,
+                    checkFavorite = checkFavorite,
+                    addFavorite = addFavorite,
+                    removeFavorite = removeFavorite
                 )
             }
         )

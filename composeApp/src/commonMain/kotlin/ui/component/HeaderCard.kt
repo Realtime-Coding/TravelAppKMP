@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
-import data.FakeFavorites
 import model.Destination
 import org.jetbrains.compose.resources.painterResource
 import theme.White
@@ -85,8 +84,15 @@ fun homeHeader() {
 }
 
 @Composable
-fun destinationDetailHeader(navigator: Navigator, destination: Destination) {
-    val isFav = remember { mutableStateOf(FakeFavorites.checkFavorite(destination)) }
+fun destinationDetailHeader(
+    navigator: Navigator,
+    destination: Destination,
+    checkFavorite: (Destination) -> Boolean,
+    addFavorite: (Destination) -> Unit,
+    removeFavorite: (Destination) -> Unit,
+    updateBottomNavBarVisible: () -> Unit
+) {
+    val isFav = remember { mutableStateOf(checkFavorite(destination)) }
     Row(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -96,7 +102,8 @@ fun destinationDetailHeader(navigator: Navigator, destination: Destination) {
             modifier = Modifier
                 .size(36.dp)
                 .clickable {
-                   navigator.pop()
+                    updateBottomNavBarVisible.invoke()
+                    navigator.pop()
                 },
             painter = painterResource(Res.drawable.back),
             contentDescription = null
@@ -110,10 +117,10 @@ fun destinationDetailHeader(navigator: Navigator, destination: Destination) {
                 )
                 .clickable {
                     if (isFav.value) {
-                        FakeFavorites.removeFavorite(destination)
+                        removeFavorite(destination)
                         isFav.value = false
                     } else {
-                        FakeFavorites.addFavorite(destination)
+                        addFavorite(destination)
                         isFav.value = true
                     }
                 }

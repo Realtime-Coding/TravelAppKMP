@@ -33,7 +33,7 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
     
@@ -67,10 +67,11 @@ kotlin {
             implementation(libs.coil.network.ktor)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.tab.navigator)
-
+            implementation(libs.lifecycle.viewmodel.compose)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            runtimeOnly(libs.kotlinx.coroutines.swing)
         }
 
         commonTest.dependencies {
@@ -90,7 +91,6 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.ktor.client.okhttp)
             runtimeOnly(libs.kotlinx.coroutines.swing)
-
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -124,8 +124,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true

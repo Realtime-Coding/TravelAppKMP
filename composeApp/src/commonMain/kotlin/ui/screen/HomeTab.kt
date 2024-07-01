@@ -7,19 +7,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import data.FakeCategories
-import data.FakeDestinations
 import model.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -35,6 +35,7 @@ import ui.component.destinationSmallItem
 import ui.component.homeHeader
 import ui.component.loadCategoryItems
 import ui.component.loadDestinationLargeItems
+import ui.viewmodel.HomeViewModel
 import util.BOTTOM_NAV_SPACE
 
 enum class HomeScreenContents{
@@ -73,15 +74,22 @@ object HomeScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        HomeScreenView(navigator)
+        HomeScreenView(navigator = navigator)
     }
 }
 
 
 @Composable
-fun HomeScreenView(navigator: Navigator){
+fun HomeScreenView(
+    viewModel: HomeViewModel = viewModel { HomeViewModel() },
+    navigator: Navigator
+){
+    val destinations by viewModel.destinations.collectAsState()
+    val categories by viewModel.categories.collectAsState()
+
+
     Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
-        var destinations by remember { mutableStateOf(FakeDestinations.destinations) }
+        var mDestinations by remember { mutableStateOf(destinations) }
         VerticalScrollLayout(
             modifier = Modifier.fillMaxSize()
                 .background(color = MaterialTheme.colorScheme.background),
@@ -100,11 +108,11 @@ fun HomeScreenView(navigator: Navigator){
             ChildLayout(
                 contentType = HomeScreenContents.CATEGORY_SECTION.name,
                 content = {
-                    loadCategoryItems(FakeCategories.categories) { category ->
+                    loadCategoryItems(categories) { category ->
                         when(category.title)  {
-                            "All" -> destinations = FakeDestinations.destinations
-                            else -> destinations = arrayListOf<Destination>().apply {
-                                addAll(FakeDestinations.destinations.filter { it.category == category })
+                            "All" -> mDestinations = destinations
+                            else -> mDestinations = arrayListOf<Destination>().apply {
+                                addAll(destinations.filter { it.category == category })
                             }
                         }
                     }
@@ -114,9 +122,22 @@ fun HomeScreenView(navigator: Navigator){
             ChildLayout(
                 contentType = HomeScreenContents.DESTINATION_LARGE_SECTION.name,
                 content = {
-                    loadDestinationLargeItems(destinations) {
-                        navigator.push(DestinationDetailScreen(it))
-                    }
+                    loadDestinationLargeItems(
+                        destinations = mDestinations,
+                        checkFavorite = {
+                            viewModel.checkFavorite(it)
+                        },
+                        addFavorite = {
+                            viewModel.addFavorite(it)
+                        },
+                        removeFavorite = {
+                            viewModel.removeFavorite(it)
+                        },
+                        onItemClicked = {
+                            viewModel.setBottomNavBarVisible(false)
+                            navigator.push(DestinationDetailScreen(it))
+                        }
+                    )
                 }
             ),
             ChildLayout(
@@ -127,10 +148,11 @@ fun HomeScreenView(navigator: Navigator){
             ),
             ChildLayout(
                 contentType = HomeScreenContents.DESTINATION_SMALL_SECTION.name,
-                items = FakeDestinations.destinations,
+                items = mDestinations,
                 content = { item ->
                     LoadItemAfterSafeCast<Destination>(item) {
                         destinationSmallItem(it) {
+                            viewModel.setBottomNavBarVisible(false)
                             navigator.push(DestinationDetailScreen(it))
                         }
                     }

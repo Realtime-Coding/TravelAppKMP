@@ -48,6 +48,7 @@ import travelbuddy.composeapp.generated.resources.star
 import ui.component.PrimaryButton
 import ui.component.TitleWithReview
 import ui.component.destinationDetailHeader
+import ui.viewmodel.HomeViewModel
 import util.BOTTOM_NAV_SPACE
 import util.ImageItem
 
@@ -60,7 +61,11 @@ data class DestinationDetailScreen(val destination: Destination) : Screen {
 }
 
 @Composable
-fun DestinationDetailScreenView(navigator: Navigator, destination: Destination) {
+fun DestinationDetailScreenView(
+    navigator: Navigator,
+    destination: Destination,
+    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel { HomeViewModel() },
+) {
     val rememberThumbnail = remember { mutableStateOf(destination.thumbnail) }
     Column(
         modifier = Modifier
@@ -68,7 +73,23 @@ fun DestinationDetailScreenView(navigator: Navigator, destination: Destination) 
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
-        topSection(navigator, destination, rememberThumbnail)
+        topSection(
+            navigator,
+            destination,
+            rememberThumbnail,
+            checkFavorite = {
+                viewModel.checkFavorite(it)
+            },
+            addFavorite = {
+                viewModel.addFavorite(it)
+            },
+            removeFavorite = {
+                viewModel.removeFavorite(it)
+            },
+            updateBottomNavBarVisible = {
+                viewModel.setBottomNavBarVisible(true)
+            }
+        )
         contentSection(destination) {
             rememberThumbnail.value = it
         }
@@ -81,12 +102,27 @@ fun DestinationDetailScreenView(navigator: Navigator, destination: Destination) 
 
 
 @Composable
-fun topSection(navigator: Navigator, destination: Destination, thumbnail: MutableState<String>) {
+fun topSection(
+    navigator: Navigator,
+    destination: Destination,
+    thumbnail: MutableState<String>,
+    checkFavorite: (Destination) -> Boolean,
+    addFavorite: (Destination) -> Unit,
+    removeFavorite: (Destination) -> Unit,
+    updateBottomNavBarVisible: () -> Unit,
+) {
     Box(
         modifier = Modifier.fillMaxWidth().height(350.dp)
     ) {
         ImageItem(thumbnail.value)
-        destinationDetailHeader(navigator,destination)
+        destinationDetailHeader(
+            navigator,
+            destination,
+            checkFavorite,
+            addFavorite,
+            removeFavorite,
+            updateBottomNavBarVisible
+        )
     }
 }
 
