@@ -48,6 +48,7 @@ import travelbuddy.composeapp.generated.resources.star
 import ui.component.PrimaryButton
 import ui.component.TitleWithReview
 import ui.component.destinationDetailHeader
+import util.BOTTOM_NAV_SPACE
 import util.ImageItem
 
 data class DestinationDetailScreen(val destination: Destination) : Screen {
@@ -63,6 +64,7 @@ fun DestinationDetailScreenView(navigator: Navigator, destination: Destination) 
     val rememberThumbnail = remember { mutableStateOf(destination.thumbnail) }
     Column(
         modifier = Modifier
+            .padding(bottom = BOTTOM_NAV_SPACE)
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
