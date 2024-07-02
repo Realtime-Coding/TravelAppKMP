@@ -72,6 +72,7 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             runtimeOnly(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.okhttp)
         }
 
         commonTest.dependencies {
