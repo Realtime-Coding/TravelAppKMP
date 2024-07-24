@@ -52,7 +52,7 @@ https://drive.google.com/file/d/1aDrhqpvc4XUdEaO-6aBZrE6HRFglDnl_/view?usp=shari
 
 This Compose Multiplatform project includes three modules:
 
-### [`composeApp`](/shared)
+### [`composeApp`](/composeApp)
 This is a Kotlin module that contains the common UI/logic for both Android and iOS applications, the code you share between platforms.
 This shared module is also where you write your Compose Multiplatform code. In `composeApp/src/commonMain/kotlin/App.kt`, you can find the shared root `@Composable` function for your app.
 It uses Gradle as the build system. You can add dependencies and change settings in `composeApp/build.gradle.kts`. The shared module builds into an Android library and an iOS framework.
@@ -86,7 +86,6 @@ If you want to contribute to this library, you're always welcome!
 
 - [Philipp Lackner - How to Share Resources in KMM (Strings, Images, etc.)](https://www.youtube.com/watch?v=xtWzpLtCuY0):
   For understanding Share resources
-- [Abdul Basit - TravelApp-KMP](https://github.com/SEAbdulbasit/TravelApp-KMP/): For gradle understanding and custom navigation.
 - [Fimga Design By Michelle Setiyanti](https://www.figma.com/community/file/1155051579579231831): For cloning the design into compose.
 
 ## Want to create Project in KMM? Step by Step Documentations
