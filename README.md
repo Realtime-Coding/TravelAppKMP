@@ -34,27 +34,29 @@ https://github.com/Realtime-Coding/TravelAppKMP/assets/21146457/d8dc7372-4780-41
 - [x] Home screen UI.
 - [x] Destination Detail screen UI.
 - [x] Favorite Detail screen UI.
-- [x] Image loading from Url.
+- [x] Coil(Image loading from Url).
 - [x] Bottom Navigation Menu.
-- [x] Mocko resources e-g images, strings and fonts.
-- [x] Custom Navigation (Later will use decompile library for navigation).
+- [x] Compose resources e-g images, strings and fonts.
+- [x] Voyager (Navigation).
 
 ### 🚧 Work in progress
 
 - [ ] Cart Screen Design.
 - [ ] Profile Screen Design.
-- [ ] SQLite setup for adding favorites.
+- [ ] Room setup for adding favorites.
 - [ ] Switch for dark/light theme.
 - [ ] Shifting content to github repo then fetch details through ktor client library.
+- [ ] MVVM Implementation
+- [ ] Testing
 
 ## Project structure 
 
 This Compose Multiplatform project includes three modules:
 
-### [`shared`](/shared)
-This is a Kotlin module that contains the logic common for both Android and iOS applications, the code you share between platforms.
-This shared module is also where you write your Compose Multiplatform code. In `shared/src/commonMain/kotlin/App.kt`, you can find the shared root `@Composable` function for your app.
-It uses Gradle as the build system. You can add dependencies and change settings in `shared/build.gradle.kts`. The shared module builds into an Android library and an iOS framework.
+### [`composeApp`](/shared)
+This is a Kotlin module that contains the common UI/logic for both Android and iOS applications, the code you share between platforms.
+This shared module is also where you write your Compose Multiplatform code. In `composeApp/src/commonMain/kotlin/App.kt`, you can find the shared root `@Composable` function for your app.
+It uses Gradle as the build system. You can add dependencies and change settings in `composeApp/build.gradle.kts`. The shared module builds into an Android library and an iOS framework.
 
 ### [`androidApp`](/androidApp)
 This is a Kotlin module that builds into an Android application. It uses Gradle as the build system. The `androidApp` module depends on and uses the shared module as a regular Android library.
