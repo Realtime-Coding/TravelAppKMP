@@ -74,6 +74,10 @@ for knowing the setup guidelines
 - Run App
   - Select "androidApp" as run configuration and you'll be able to run the Android app.
   - Select "iosApp" as run configuration and you'll be able to run the iOS app _(XCode can also be used to run the app)_.
+  - Desktop
+    <img width="968" alt="Screenshot 2024-07-24 at 1 29 16 PM" src="https://github.com/user-attachments/assets/69bc6a8d-f169-402d-ac73-05c3af821f26">
+    <img width="353" alt="Screenshot 2024-07-24 at 1 29 49 PM" src="https://github.com/user-attachments/assets/e423e531-ab38-4a79-b716-f02fd40b2660">
+
 
 ---
 
