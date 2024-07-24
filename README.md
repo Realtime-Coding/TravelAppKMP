@@ -1,22 +1,91 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+#  Travel APP (Kotlin Multiplatform Mobile)
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+Travel App is a simple **mobile application** built to demonstrate the use of
+_**Kotlin Multiplatform Mobile**_ for developing _Android and iOS_ applications
+using **Jetpack Compose** 🚀.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## ![](https://img.shields.io/badge/Android-black.svg?style=for-the-badge&logo=android) ![](https://img.shields.io/badge/iOS-black.svg?style=for-the-badge&logo=apple)  
 
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+<img width="90%" alt="Cover-Travel-App-KMM" src="https://github.com/Realtime-Coding/TravelAppKMM/assets/21146457/50aa5ea2-8c2e-4f6c-919d-a9cb8d68b649">
 
-**Note:** Compose/Web is Experimental and may be changed at any time. Use it only for evaluation purposes.
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
+### 📱 Preview
 
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+Currently, the app looks like this on the both platforms:
+
+#### ▶️ Android & Android
+
+https://github.com/Realtime-Coding/TravelAppKMP/assets/21146457/d8dc7372-4780-4145-a959-b223a819d321
+
+---
+
+## Built with 
+
+- [Kotlin](kotlinlang.org): Programming language
+- [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html): For building multi-platform applications in the single codebase.
+- [Jetpack/JetBrains Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/): For a shared UI between multi-platforms i.e. Android and iOS in this project.
+- [Moko Resources](https://github.com/icerockdev/moko-resources): This is a Kotlin MultiPlatform library (and Gradle plugin) that provides access to the resources on macOS, iOS, Android the JVM and JS/Browser with the support of the default system localization.
+-  [Compose Image Loader](https://github.com/qdsfdhvh/compose-imageloader): Compose Image library for Kotlin Multiplatform.
+
+
+## TODOs
+
+### ✅ Completed
+- [x] Home screen UI.
+- [x] Destination Detail screen UI.
+- [x] Favorite Detail screen UI.
+- [x] Image loading from Url.
+- [x] Bottom Navigation Menu.
+- [x] Mocko resources e-g images, strings and fonts.
+- [x] Custom Navigation (Later will use decompile library for navigation).
+
+### 🚧 Work in progress
+
+- [ ] Cart Screen Design.
+- [ ] Profile Screen Design.
+- [ ] SQLite setup for adding favorites.
+- [ ] Switch for dark/light theme.
+- [ ] Shifting content to github repo then fetch details through ktor client library.
+
+## Project structure 
+
+This Compose Multiplatform project includes three modules:
+
+### [`shared`](/shared)
+This is a Kotlin module that contains the logic common for both Android and iOS applications, the code you share between platforms.
+This shared module is also where you write your Compose Multiplatform code. In `shared/src/commonMain/kotlin/App.kt`, you can find the shared root `@Composable` function for your app.
+It uses Gradle as the build system. You can add dependencies and change settings in `shared/build.gradle.kts`. The shared module builds into an Android library and an iOS framework.
+
+### [`androidApp`](/androidApp)
+This is a Kotlin module that builds into an Android application. It uses Gradle as the build system. The `androidApp` module depends on and uses the shared module as a regular Android library.
+
+### [`iosApp`](/iosApp)
+This is an Xcode project that builds into an iOS application. It depends on and uses the shared module as a CocoaPods dependency.
+
+
+## Setting up project 👨🏻‍💻
+
+- Refer to the ***"Setting up environment"*** section of [this repository](https://github.com/JetBrains/compose-multiplatform-ios-android-template/main/README.md) 
+for knowing the setup guidelines
+- After validating requirements as per the above guide, clone this repository.
+- Open this project in Android Studio Electric Eel or newer version.
+- Build project 🔨 and see if everything is working fine.
+- Run App
+  - Select "androidApp" as run configuration and you'll be able to run the Android app.
+  - Select "iosApp" as run configuration and you'll be able to run the iOS app _(XCode can also be used to run the app)_.
+
+---
+
+## Contribute
+
+If you want to contribute to this library, you're always welcome!
+
+## Acknowledgements 
+
+- [Philipp Lackner - How to Share Resources in KMM (Strings, Images, etc.)](https://www.youtube.com/watch?v=xtWzpLtCuY0):
+  For understanding Share resources
+- [Abdul Basit - TravelApp-KMP](https://github.com/SEAbdulbasit/TravelApp-KMP/): For gradle understanding and custom navigation.
+- [Fimga Design By Michelle Setiyanti](https://www.figma.com/community/file/1155051579579231831): For cloning the design into compose.
+
+## Want to create Project in KMM? Step by Step Documentations
+Notion file: [Documentations](https://shahzadafridi.notion.site/KMM-Journey-b1c86a41733c4b53bd459c8d10fb0a45?pvs=4)
