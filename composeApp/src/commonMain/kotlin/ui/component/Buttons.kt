@@ -1,6 +1,7 @@
 package ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +17,12 @@ import theme.White
 import theme.PrimaryColor
 
 @Composable
-fun PrimaryButton(title: String, paddingValues: PaddingValues = PaddingValues()){
+fun PrimaryButton(title: String, paddingValues: PaddingValues = PaddingValues(), onClick: () -> Unit){
     Box(
         Modifier
             .padding(paddingValues)
             .fillMaxWidth()
+            .clickable { onClick.invoke() }
             .background(color = PrimaryColor, shape = RoundedCornerShape(size = 8.dp)),
         contentAlignment = Alignment.Center
     ) {

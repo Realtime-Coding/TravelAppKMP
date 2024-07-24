@@ -1,6 +1,7 @@
 package ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import data.FakeCart
 import data.FakeCategories
 import data.FakeDestinations
 import data.FakeFavorites
@@ -21,6 +22,9 @@ class HomeViewModel : ViewModel() {
     private val _favorites = MutableStateFlow(FakeFavorites.favorites)
     val favorites: StateFlow<MutableList<Destination>> = _favorites.asStateFlow()
 
+    private val _cartItems = MutableStateFlow(FakeCart.cartItems)
+    val cartItems: StateFlow<MutableList<Destination>> = _cartItems.asStateFlow()
+
     private val _bottomNavBarVisible = MutableStateFlow(true)
     val bottomNavBarVisible: StateFlow<Boolean> = _bottomNavBarVisible.asStateFlow()
 
@@ -29,6 +33,9 @@ class HomeViewModel : ViewModel() {
     }
 
     fun checkFavorite(destination: Destination) = FakeFavorites.favorites.any { it == destination }
+
+    fun checkCartItem(destination: Destination) = FakeCart.cartItems.any { it == destination }
+
 
     fun addFavorite(destination: Destination) {
         FakeFavorites.favorites.add(destination)
@@ -40,5 +47,14 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun addToCart(destination: Destination) {
+        FakeCart.cartItems.add(destination)
+    }
+
+    fun removeFromCart(destination: Destination){
+        if (checkCartItem(destination)) {
+            FakeCart.cartItems.remove(destination)
+        }
+    }
 
 }
