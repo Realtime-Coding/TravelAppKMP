@@ -57,9 +57,6 @@ This is a Kotlin module that contains the common UI/logic for both Android and i
 This shared module is also where you write your Compose Multiplatform code. In `composeApp/src/commonMain/kotlin/App.kt`, you can find the shared root `@Composable` function for your app.
 It uses Gradle as the build system. You can add dependencies and change settings in `composeApp/build.gradle.kts`. The shared module builds into an Android library and an iOS framework.
 
-### [`androidApp`](/androidApp)
-This is a Kotlin module that builds into an Android application. It uses Gradle as the build system. The `androidApp` module depends on and uses the shared module as a regular Android library.
-
 ### [`iosApp`](/iosApp)
 This is an Xcode project that builds into an iOS application. It depends on and uses the shared module as a CocoaPods dependency.
 
