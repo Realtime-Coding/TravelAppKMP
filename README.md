@@ -10,11 +10,11 @@ using **Jetpack Compose** 🚀.
 
 ### 📱 Preview
 
-Currently, the app looks like this on the both platforms:
+Currently, the app looks like this on platforms:
 
-#### ▶️ Android & Android
+#### ▶️ Android, IOS & Desktop
 
-https://github.com/Realtime-Coding/TravelAppKMP/assets/21146457/d8dc7372-4780-4145-a959-b223a819d321
+https://drive.google.com/file/d/1aDrhqpvc4XUdEaO-6aBZrE6HRFglDnl_/view?usp=sharing
 
 ---
 
