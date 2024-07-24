@@ -94,8 +94,9 @@ fun DestinationDetailScreenView(
             rememberThumbnail.value = it
         }
         PrimaryButton(
-            "Book Now",
-            PaddingValues(start = 25.dp, top = 36.dp, end = 25.dp, bottom = 36.dp)
+            title = "Book Now",
+            paddingValues = PaddingValues(start = 25.dp, top = 36.dp, end = 25.dp, bottom = 36.dp),
+            onClick = { viewModel.addToCart(destination) }
         )
     }
 }
