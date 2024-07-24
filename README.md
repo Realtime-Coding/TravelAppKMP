@@ -6,8 +6,7 @@ using **Jetpack Compose** 🚀.
 
 ## ![](https://img.shields.io/badge/Android-black.svg?style=for-the-badge&logo=android) ![](https://img.shields.io/badge/iOS-black.svg?style=for-the-badge&logo=apple)  
 
-
-<img width="90%" alt="Cover-Travel-App-KMM" src="https://github.com/Realtime-Coding/TravelAppKMM/assets/21146457/50aa5ea2-8c2e-4f6c-919d-a9cb8d68b649">
+<img width="90%" alt="Cover-Travel-App-KMM" src="https://github.com/Realtime-Coding/TravelAppKMM/assets/21146457/a3d06c1e-cfa8-4b4f-99e0-4bb8288a37c9">
 
 ### 📱 Preview
 
