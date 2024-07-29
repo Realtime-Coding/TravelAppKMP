@@ -1,5 +1,6 @@
 package ui.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,11 +14,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -44,9 +47,13 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import model.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import theme.PrimaryColor
+import theme.ReviewBodyBg
 import theme.White
 import theme.SecondTextColor
 import theme.TextColor
+import theme.ThirdTextColor
+import theme.Yellow
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.choose_date
 import travelbuddy.composeapp.generated.resources.choose_meeting_point
@@ -55,6 +62,7 @@ import travelbuddy.composeapp.generated.resources.estimation
 import travelbuddy.composeapp.generated.resources.facilities
 import travelbuddy.composeapp.generated.resources.preview
 import travelbuddy.composeapp.generated.resources.ratting
+import travelbuddy.composeapp.generated.resources.star
 import travelbuddy.composeapp.generated.resources.type
 import travelbuddy.composeapp.generated.resources.via
 import ui.component.DestinationDetailChipItem
@@ -230,13 +238,25 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            DestinationDetailSubItemRatting(stringResource(Res.string.ratting), destination.rating.toString())
+            DestinationDetailSubItemRatting(
+                stringResource(Res.string.ratting),
+                destination.rating.toString()
+            )
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem(stringResource(Res.string.type), destination.type.toUpperCase(Locale.current))
+            DestinationDetailSubItem(
+                stringResource(Res.string.type),
+                destination.type.toUpperCase(Locale.current)
+            )
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem(stringResource(Res.string.estimation), destination.estimation.toUpperCase(Locale.current))
+            DestinationDetailSubItem(
+                stringResource(Res.string.estimation),
+                destination.estimation.toUpperCase(Locale.current)
+            )
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem(stringResource(Res.string.via), destination.via.toUpperCase(Locale.current))
+            DestinationDetailSubItem(
+                stringResource(Res.string.via),
+                destination.via.toUpperCase(Locale.current)
+            )
         }
 
         Text(
@@ -297,6 +317,5 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
         )
 
         DestinationDetailFacilityItem(destination.facilities)
-
     }
 }
