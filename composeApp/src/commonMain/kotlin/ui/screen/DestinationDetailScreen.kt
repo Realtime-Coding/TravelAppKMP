@@ -252,7 +252,12 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             textAlign = TextAlign.Justify
         )
 
-        TitleWithReview("Preview", "4.8", Res.drawable.star)
+        Text(
+            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp, end = 16.dp),
+            text = "Preview",
+            color = TextColor,
+            style = MaterialTheme.typography.bodySmall
+        )
 
         LazyRow(
             modifier = Modifier.padding(start = 25.dp, top = 18.dp),
@@ -276,7 +281,7 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
         )
 
         DestinationDetailDateItem(
-            arrayListOf("20 Dec - 24 Dec 2024", "20 Dec - 24 Dec 2024", "20 Dec - 24 Dec 2024")
+            arrayListOf("20 Dec - 24 Dec 2024", "25 Dec - 26 Dec 2024", "27 Dec - 30 Dec 2024")
         )
 
         Text(

@@ -18,17 +18,24 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ChipColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
+import theme.Black
 import theme.BorderColor
 import theme.TextColor
 import theme.White
@@ -161,22 +168,28 @@ fun DestinationDetailPersonCard() {
 
 @Composable
 fun DestinationDetailDateItem(dates: List<String>) {
+    var selectedChip by remember { mutableStateOf("") }
     LazyRow(
         modifier = Modifier
             .padding(start = 16.dp, top = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(dates) {
+        items(dates) { chip ->
             AssistChip(
-                onClick = {},
+                onClick = {
+                    selectedChip = chip
+                },
                 label = {
                     Text(
                         modifier = Modifier,
-                        text = it,
+                        text = chip,
                         style = MaterialTheme.typography.labelMedium,
-                        color = TextColor,
+                        color = if (selectedChip == chip) White else TextColor,
                     )
-                }
+                },
+                colors = AssistChipDefaults.assistChipColors(
+                    containerColor = if (selectedChip == chip) Black else White
+                )
             )
         }
     }
@@ -185,14 +198,17 @@ fun DestinationDetailDateItem(dates: List<String>) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DestinationDetailFacilityItem(dates: List<String>) {
+    var selectedChip by remember { mutableStateOf("") }
     FlowRow(
         modifier = Modifier
             .padding(start = 16.dp, top = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        dates.forEach {
+        dates.forEach { chip ->
             AssistChip(
-                onClick = {},
+                onClick = {
+                    selectedChip = chip
+                },
                 leadingIcon = {
                     Image(
                         modifier = Modifier.size(18.dp),
@@ -202,11 +218,14 @@ fun DestinationDetailFacilityItem(dates: List<String>) {
                 },
                 label = {
                     Text(
-                        text = it,
+                        text = chip,
                         style = MaterialTheme.typography.labelMedium,
-                        color = TextColor,
+                        color = if (selectedChip == chip) White else TextColor,
                     )
-                }
+                },
+                colors = AssistChipDefaults.assistChipColors(
+                    containerColor = if (selectedChip == chip) Black else White
+                )
             )
         }
     }
