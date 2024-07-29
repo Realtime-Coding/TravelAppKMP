@@ -1,16 +1,12 @@
 package ui.screen
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,13 +14,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,8 +30,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
@@ -49,16 +44,10 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import model.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import theme.BorderColor
 import theme.White
-import theme.PrimaryColor
-import theme.ReviewBodyBg
 import theme.SecondTextColor
 import theme.TextColor
-import theme.Yellow
 import travelbuddy.composeapp.generated.resources.Res
-import travelbuddy.composeapp.generated.resources.cart_add
-import travelbuddy.composeapp.generated.resources.cart_minu
 import travelbuddy.composeapp.generated.resources.choose_date
 import travelbuddy.composeapp.generated.resources.choose_meeting_point
 import travelbuddy.composeapp.generated.resources.ci_location
@@ -66,17 +55,15 @@ import travelbuddy.composeapp.generated.resources.estimation
 import travelbuddy.composeapp.generated.resources.facilities
 import travelbuddy.composeapp.generated.resources.preview
 import travelbuddy.composeapp.generated.resources.ratting
-import travelbuddy.composeapp.generated.resources.star
 import travelbuddy.composeapp.generated.resources.type
 import travelbuddy.composeapp.generated.resources.via
-import ui.component.DestinationDetailDateItem
+import ui.component.DestinationDetailChipItem
 import ui.component.DestinationDetailFacilityItem
-import ui.component.DestinationDetailPersonCard
+import ui.component.DestinationDetailPersonQunatityCard
 import ui.component.DestinationDetailSubItem
 import ui.component.DestinationDetailSubItemDivider
 import ui.component.DestinationDetailSubItemRatting
 import ui.component.PrimaryButton
-import ui.component.TitleWithReview
 import ui.component.destinationDetailHeader
 import ui.viewmodel.HomeViewModel
 import util.BOTTOM_NAV_SPACE
@@ -245,11 +232,11 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
         ) {
             DestinationDetailSubItemRatting(stringResource(Res.string.ratting), destination.rating.toString())
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem(stringResource(Res.string.type), destination.type)
+            DestinationDetailSubItem(stringResource(Res.string.type), destination.type.toUpperCase(Locale.current))
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem(stringResource(Res.string.estimation), destination.estimation)
+            DestinationDetailSubItem(stringResource(Res.string.estimation), destination.estimation.toUpperCase(Locale.current))
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem(stringResource(Res.string.via), destination.via)
+            DestinationDetailSubItem(stringResource(Res.string.via), destination.via.toUpperCase(Locale.current))
         }
 
         Text(
@@ -289,7 +276,7 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             style = MaterialTheme.typography.bodyMedium
         )
 
-        DestinationDetailDateItem(destination.dates)
+        DestinationDetailChipItem(destination.dates)
 
         Text(
             modifier = Modifier.padding(start = 16.dp, top = 30.dp),
@@ -298,9 +285,9 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             style = MaterialTheme.typography.bodyMedium
         )
 
-        DestinationDetailDateItem(destination.meetingPoints)
+        DestinationDetailChipItem(destination.meetingPoints)
 
-        DestinationDetailPersonCard()
+        DestinationDetailPersonQunatityCard(destination)
 
         Text(
             modifier = Modifier.padding(start = 16.dp, top = 30.dp),

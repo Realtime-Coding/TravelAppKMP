@@ -3,9 +3,8 @@ package ui.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -21,7 +20,6 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ChipColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,7 +32,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import model.Destination
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import theme.Black
 import theme.BorderColor
 import theme.TextColor
@@ -43,6 +43,7 @@ import theme.Yellow
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.cart_add
 import travelbuddy.composeapp.generated.resources.cart_minu
+import travelbuddy.composeapp.generated.resources.num_of_people
 import travelbuddy.composeapp.generated.resources.star
 
 
@@ -106,7 +107,8 @@ fun DestinationDetailSubItemDivider() {
 
 
 @Composable
-fun DestinationDetailPersonCard() {
+fun DestinationDetailPersonQunatityCard(destination: Destination) {
+    val quantity = remember { mutableStateOf(1) }
     Card(
         modifier = Modifier
             .padding(start = 16.dp, top = 30.dp, end = 16.dp),
@@ -124,12 +126,12 @@ fun DestinationDetailPersonCard() {
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "Number Of Pax",
+                    text = stringResource(Res.string.num_of_people),
                     color = TextColor,
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "$80",
+                    text = "$${quantity.value * destination.price.substring(1).toInt()}",
                     color = TextColor,
                     style = MaterialTheme.typography.bodyMedium
                 )
@@ -142,19 +144,24 @@ fun DestinationDetailPersonCard() {
             ) {
                 Icon(
                     modifier = Modifier
+                        .clickable { quantity.value += 1 }
                         .size(24.dp),
                     painter = painterResource(resource = Res.drawable.cart_add),
                     contentDescription = "",
                     tint = Color.Black
                 )
                 Text(
-                    text = "0",
+                    text = "${quantity.value}",
                     color = TextColor,
                     style = MaterialTheme.typography.bodyMedium,
                 )
 
                 Icon(
                     modifier = Modifier
+                        .clickable {
+                            if (quantity.value > 1)
+                                quantity.value -= 1
+                        }
                         .size(24.dp),
                     painter = painterResource(resource = Res.drawable.cart_minu),
                     contentDescription = "",
@@ -167,7 +174,7 @@ fun DestinationDetailPersonCard() {
 }
 
 @Composable
-fun DestinationDetailDateItem(dates: List<String>) {
+fun DestinationDetailChipItem(dates: List<String>) {
     var selectedChip by remember { mutableStateOf("") }
     LazyRow(
         modifier = Modifier
