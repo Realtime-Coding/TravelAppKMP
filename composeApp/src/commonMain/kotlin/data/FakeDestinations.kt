@@ -20,7 +20,12 @@ object FakeDestinations {
                     "https://images.unsplash.com/photo-1689714321677-a914620d6b76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
                     "https://images.unsplash.com/photo-1612253166766-c88431cdadee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80",
                     "https://images.unsplash.com/photo-1533305120462-aed774147024?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                )
+                ),
+                dates = arrayListOf("20 Dec - 24 Dec 2024", "25 Dec - 26 Dec 2024", "27 Dec - 30 Dec 2024"),
+                meetingPoints = arrayListOf("Serang", "Baranga", "Manchester", "Folio"),
+                facilities = arrayListOf("Transport", "Simaksi", "Coffee Break", "Meals during trekking","Camping tents", "P3K", "Officially recognized mountain guide", "Guide during trekking", "Folio"),
+                via = "Peshawar",
+                estimation = "1 WEEK"
             )
         )
         add(
@@ -39,7 +44,12 @@ object FakeDestinations {
                     "https://images.unsplash.com/photo-1689714321677-a914620d6b76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
                     "https://images.unsplash.com/photo-1690315854810-dfeb1c763c27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
                     "https://images.unsplash.com/photo-1690205073996-7fde74f5fd56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                )
+                ),
+                dates = arrayListOf("20 Dec - 24 Dec 2024", "25 Dec - 26 Dec 2024", "27 Dec - 30 Dec 2024"),
+                meetingPoints = arrayListOf("Serang", "Baranga", "Manchester", "Folio"),
+                facilities = arrayListOf("Transport", "Simaksi", "Coffee Break", "Meals during trekking","Camping tents", "P3K", "Officially recognized mountain guide", "Guide during trekking", "Folio"),
+                via = "Peshawar",
+                estimation = "1 WEEK"
             )
         )
         add(
@@ -58,7 +68,12 @@ object FakeDestinations {
                     "https://images.unsplash.com/photo-1455348734739-11d7726c3c80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1548&q=80",
                     "https://images.unsplash.com/photo-1473221902860-45c5abc981a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1548&q=80",
                     "https://www.linkpicture.com/q/vladimir-haltakov-PMfuunAfF2w-unsplash.jpg"
-                )
+                ),
+                dates = arrayListOf("20 Dec - 24 Dec 2024", "25 Dec - 26 Dec 2024", "27 Dec - 30 Dec 2024"),
+                meetingPoints = arrayListOf("Serang", "Baranga", "Manchester", "Folio"),
+                facilities = arrayListOf("Transport", "Simaksi", "Coffee Break", "Meals during trekking","Camping tents", "P3K", "Officially recognized mountain guide", "Guide during trekking", "Folio"),
+                via = "Karachi",
+                estimation = "1 WEEK"
             )
         )
         add(
@@ -77,7 +92,12 @@ object FakeDestinations {
                     "https://images.unsplash.com/photo-1682686578289-cf9c8c472c9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
                     "https://images.unsplash.com/photo-1682695794816-7b9da18ed470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
                     "https://images.unsplash.com/photo-1682695795255-b236b1f1267d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                )
+                ),
+                dates = arrayListOf("20 Dec - 24 Dec 2024", "25 Dec - 26 Dec 2024", "27 Dec - 30 Dec 2024"),
+                meetingPoints = arrayListOf("Serang", "Baranga", "Manchester", "Folio"),
+                facilities = arrayListOf("Transport", "Simaksi", "Coffee Break", "Meals during trekking","Camping tents", "P3K", "Officially recognized mountain guide", "Guide during trekking", "Folio"),
+                via = "Lahore",
+                estimation = "1 Day"
             )
         )
     }

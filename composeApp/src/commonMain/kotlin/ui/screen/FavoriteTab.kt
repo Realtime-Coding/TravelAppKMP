@@ -31,6 +31,7 @@ import ui.component.destinationSmallItem
 import theme.TextColor
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.fav_tab
+import travelbuddy.composeapp.generated.resources.favorite_destination
 import travelbuddy.composeapp.generated.resources.menu_fav
 import ui.viewmodel.HomeViewModel
 import util.BOTTOM_NAV_SPACE
@@ -82,7 +83,7 @@ fun FavoriteScreenView(
             item {
                 Text(
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp),
-                    text = "Favorite Destinations",
+                    text = stringResource(Res.string.favorite_destination),
                     color = TextColor,
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center

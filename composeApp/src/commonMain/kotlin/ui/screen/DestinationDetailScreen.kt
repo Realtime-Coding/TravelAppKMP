@@ -48,6 +48,7 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import model.Destination
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import theme.BorderColor
 import theme.White
 import theme.PrimaryColor
@@ -58,8 +59,16 @@ import theme.Yellow
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.cart_add
 import travelbuddy.composeapp.generated.resources.cart_minu
+import travelbuddy.composeapp.generated.resources.choose_date
+import travelbuddy.composeapp.generated.resources.choose_meeting_point
 import travelbuddy.composeapp.generated.resources.ci_location
+import travelbuddy.composeapp.generated.resources.estimation
+import travelbuddy.composeapp.generated.resources.facilities
+import travelbuddy.composeapp.generated.resources.preview
+import travelbuddy.composeapp.generated.resources.ratting
 import travelbuddy.composeapp.generated.resources.star
+import travelbuddy.composeapp.generated.resources.type
+import travelbuddy.composeapp.generated.resources.via
 import ui.component.DestinationDetailDateItem
 import ui.component.DestinationDetailFacilityItem
 import ui.component.DestinationDetailPersonCard
@@ -234,13 +243,13 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            DestinationDetailSubItemRatting("RATING", "4.8")
+            DestinationDetailSubItemRatting(stringResource(Res.string.ratting), destination.rating.toString())
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem("TYPE", "PERSON")
+            DestinationDetailSubItem(stringResource(Res.string.type), destination.type)
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem("ESTIMATE", "3D 2N")
+            DestinationDetailSubItem(stringResource(Res.string.estimation), destination.estimation)
             DestinationDetailSubItemDivider()
-            DestinationDetailSubItem("VIA", "Khapor")
+            DestinationDetailSubItem(stringResource(Res.string.via), destination.via)
         }
 
         Text(
@@ -254,7 +263,7 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
 
         Text(
             modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp, end = 16.dp),
-            text = "Preview",
+            text = stringResource(Res.string.preview),
             color = TextColor,
             style = MaterialTheme.typography.bodySmall
         )
@@ -275,38 +284,32 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
 
         Text(
             modifier = Modifier.padding(start = 16.dp, top = 30.dp),
-            text = "Choose Date",
+            text = stringResource(Res.string.choose_date),
             color = TextColor,
             style = MaterialTheme.typography.bodyMedium
         )
 
-        DestinationDetailDateItem(
-            arrayListOf("20 Dec - 24 Dec 2024", "25 Dec - 26 Dec 2024", "27 Dec - 30 Dec 2024")
-        )
+        DestinationDetailDateItem(destination.dates)
 
         Text(
             modifier = Modifier.padding(start = 16.dp, top = 30.dp),
-            text = "Choose Meeting Point",
+            text = stringResource(Res.string.choose_meeting_point),
             color = TextColor,
             style = MaterialTheme.typography.bodyMedium
         )
 
-        DestinationDetailDateItem(
-            arrayListOf("Serang", "Baranga", "Manchester", "Folio")
-        )
+        DestinationDetailDateItem(destination.meetingPoints)
 
         DestinationDetailPersonCard()
 
         Text(
             modifier = Modifier.padding(start = 16.dp, top = 30.dp),
-            text = "Facilities",
+            text = stringResource(Res.string.facilities),
             color = TextColor,
             style = MaterialTheme.typography.bodyMedium
         )
 
-        DestinationDetailFacilityItem(
-            arrayListOf("Transport", "Simaksi", "Coffee Break", "Meals during trekking","Camping tents", "P3K", "Officially recognized mountain guide", "Guide during trekking", "Folio")
-        )
+        DestinationDetailFacilityItem(destination.facilities)
 
     }
 }

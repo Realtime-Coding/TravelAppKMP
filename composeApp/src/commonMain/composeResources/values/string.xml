@@ -4,4 +4,17 @@
     <string name="fav_tab">Favourite</string>
     <string name="profile_tab">Profile</string>
     <string name="cart_tab">Cart</string>
+    <string name="ratting">RATING</string>
+    <string name="type">TYPE</string>
+    <string name="estimation">ESTIMATE</string>
+    <string name="via">VIA</string>
+    <string name="choose_date">Choose Date</string>
+    <string name="choose_meeting_point">Choose Meeting Point</string>
+    <string name="facilities">Facilities</string>
+    <string name="preview">Preview</string>
+    <string name="favorite_destination">Favorite Destinations</string>
+    <string name="popular_destination">Popular Destinations</string>
+    <string name="view_all">View All</string>
+    <string name="category">Category</string>
+    <string name="all">All</string>
 </resources>

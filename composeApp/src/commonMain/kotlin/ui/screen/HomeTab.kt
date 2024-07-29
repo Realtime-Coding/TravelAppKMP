@@ -24,9 +24,13 @@ import model.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import travelbuddy.composeapp.generated.resources.Res
+import travelbuddy.composeapp.generated.resources.all
 import travelbuddy.composeapp.generated.resources.arrow_forward
+import travelbuddy.composeapp.generated.resources.category
 import travelbuddy.composeapp.generated.resources.home_tab
 import travelbuddy.composeapp.generated.resources.menu_home
+import travelbuddy.composeapp.generated.resources.popular_destination
+import travelbuddy.composeapp.generated.resources.view_all
 import ui.component.ChildLayout
 import ui.component.LoadItemAfterSafeCast
 import ui.component.TitleWithViewAllItem
@@ -102,7 +106,7 @@ fun HomeScreenView(
             ChildLayout(
                 contentType = HomeScreenContents.CATEGORY_VIEW_ALL.name,
                 content = {
-                    TitleWithViewAllItem("Category", "View All", Res.drawable.arrow_forward)
+                    TitleWithViewAllItem(stringResource(Res.string.category), stringResource(Res.string.view_all), Res.drawable.arrow_forward)
                 }
             ),
             ChildLayout(
@@ -143,7 +147,7 @@ fun HomeScreenView(
             ChildLayout(
                 contentType = HomeScreenContents.DESTINATION_VIEW_ALL.name,
                 content = {
-                    TitleWithViewAllItem("Popular Destination", "View All", Res.drawable.arrow_forward)
+                    TitleWithViewAllItem(stringResource(Res.string.popular_destination), stringResource(Res.string.view_all), Res.drawable.arrow_forward)
                 }
             ),
             ChildLayout(
