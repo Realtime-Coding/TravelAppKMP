@@ -2,10 +2,14 @@ package ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -23,6 +27,8 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import data.FakeArticles
+import model.Article
 import model.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -38,6 +44,7 @@ import ui.component.LoadItemAfterSafeCast
 import ui.component.NearestLocationItem
 import ui.component.TitleWithViewAllItem
 import ui.component.VerticalScrollLayout
+import ui.component.article.ArticleOther
 import ui.component.destinationSmallItem
 import ui.component.homeHeader
 import ui.component.loadCategoryItems
@@ -52,6 +59,7 @@ enum class HomeScreenContents {
     DESTINATION_LARGE_SECTION,
     DESTINATION_VIEW_ALL,
     NEAREST_LOCATIONS,
+    ARTICLES,
     DESTINATION_SMALL_SECTION,
 }
 
@@ -93,11 +101,13 @@ fun HomeScreenView(
     navigator: Navigator
 ) {
     val destinations by viewModel.destinations.collectAsState()
+    val nearestDestinations = FakeArticles.destinations
     val categories by viewModel.categories.collectAsState()
 
 
     Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         var mDestinations by remember { mutableStateOf(destinations) }
+        var mNearestDestinations by remember { mutableStateOf(nearestDestinations) }
         VerticalScrollLayout(
             modifier = Modifier.fillMaxSize()
                 .background(color = MaterialTheme.colorScheme.background),
@@ -122,9 +132,17 @@ fun HomeScreenView(
                 content = {
                     loadCategoryItems(categories) { category ->
                         when (category.title) {
-                            "All" -> mDestinations = destinations
-                            else -> mDestinations = arrayListOf<Destination>().apply {
-                                addAll(destinations.filter { it.category == category })
+                            "All" -> {
+                                mDestinations = destinations
+                                mNearestDestinations = FakeArticles.destinations
+                            }
+                            else -> {
+                                mDestinations = arrayListOf<Destination>().apply {
+                                    addAll(destinations.filter { it.category == category })
+                                }
+                                mNearestDestinations = arrayListOf<Destination>().apply {
+                                    addAll(nearestDestinations.filter { it.category == category })
+                                }
                             }
                         }
                     }
@@ -187,15 +205,41 @@ fun HomeScreenView(
             ChildLayout(
                 contentType = HomeScreenContents.NEAREST_LOCATIONS.name,
                 content = {
-                    Row(
+                    LazyRow(
                         modifier = Modifier
                             .padding(start = 16.dp, top = 12.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        mDestinations.forEach {
+                        items(mNearestDestinations) {
                             NearestLocationItem(it) {
                                 viewModel.setBottomNavBarVisible(false)
                                 navigator.push(DestinationDetailScreen(it))
+                            }
+                        }
+                    }
+                }
+            ),
+            ChildLayout(
+                contentType = HomeScreenContents.DESTINATION_VIEW_ALL.name,
+                content = {
+                    TitleWithViewAllItem(
+                        "Articles",
+                        stringResource(Res.string.view_all),
+                        Res.drawable.arrow_forward
+                    )
+                }
+            ),
+            ChildLayout(
+                contentType = HomeScreenContents.ARTICLES.name,
+                content = {
+                    Column (
+                        modifier = Modifier.padding(start = 16.dp, top = 12.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        FakeArticles.articles.forEach {
+                            ArticleOther(modifier = Modifier, article = it) {
+                                viewModel.setBottomNavBarVisible(false)
+                                navigator.push(ArticleDetailScreen(it))
                             }
                         }
                     }
