@@ -66,15 +66,8 @@ jobs:
           fi
 
       - name: Build iOS
-        run: xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace \
-             -scheme iosApp \
-             -configuration Debug \
-             -sdk iphoneos \
-             -destination 'name=iPhone 14' \
-             clean build \
-             CODE_SIGNING_REQUIRED=NO \
-             CODE_SIGN_IDENTITY="" \
-             DEVELOPMENT_TEAM=""
+        run: | 
+          xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Debug -sdk iphoneos -destination name='iPhone 14' build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
                    
       - name: Upload iOS artifacts
         uses: actions/upload-artifact@v4
@@ -125,12 +118,8 @@ jobs:
 
       - name: Build macOS app
         run: |
-          xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace \
-                     -scheme iosApp \
-                     -configuration Release \
-                     -sdk macosx \
-                     clean build
-
+          xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Release -sdk macosx clean build
+          
       - name: Create DMG
         run: |
           create-dmg 'path/to/your/app.app' 'path/to/output/directory'
