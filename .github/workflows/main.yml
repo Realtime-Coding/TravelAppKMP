@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'zulu'
+          distribution: 'zulu' # You can also use 'adoptopenjdk' or 'temurin' if needed
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
@@ -30,7 +30,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Build Android
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease --info
 
       - name: Upload Android artifacts
         uses: actions/upload-artifact@v3
@@ -50,8 +50,14 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Install Xcode command line tools
-        run: xcode-select --install
+      - name: Install Xcode Command Line Tools
+        run: |
+          if ! xcode-select --print-path > /dev/null 2>&1; then
+            echo "Xcode Command Line Tools are not installed. Installing..."
+            xcode-select --install || echo "Failed to install Xcode Command Line Tools"
+          else
+            echo "Xcode Command Line Tools are already installed"
+          fi
 
       - name: Build iOS
         run: ./gradlew iosArm64MainFramework
