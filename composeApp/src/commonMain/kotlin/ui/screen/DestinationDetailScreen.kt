@@ -1,5 +1,6 @@
 package ui.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,11 +14,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,8 +30,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
@@ -38,15 +46,32 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import model.Destination
 import org.jetbrains.compose.resources.painterResource
-import theme.White
+import org.jetbrains.compose.resources.stringResource
 import theme.PrimaryColor
+import theme.ReviewBodyBg
+import theme.White
 import theme.SecondTextColor
 import theme.TextColor
+import theme.ThirdTextColor
+import theme.Yellow
 import travelbuddy.composeapp.generated.resources.Res
+import travelbuddy.composeapp.generated.resources.choose_date
+import travelbuddy.composeapp.generated.resources.choose_meeting_point
 import travelbuddy.composeapp.generated.resources.ci_location
+import travelbuddy.composeapp.generated.resources.estimation
+import travelbuddy.composeapp.generated.resources.facilities
+import travelbuddy.composeapp.generated.resources.preview
+import travelbuddy.composeapp.generated.resources.ratting
 import travelbuddy.composeapp.generated.resources.star
+import travelbuddy.composeapp.generated.resources.type
+import travelbuddy.composeapp.generated.resources.via
+import ui.component.DestinationDetailChipItem
+import ui.component.DestinationDetailFacilityItem
+import ui.component.DestinationDetailPersonQunatityCard
+import ui.component.DestinationDetailSubItem
+import ui.component.DestinationDetailSubItemDivider
+import ui.component.DestinationDetailSubItemRatting
 import ui.component.PrimaryButton
-import ui.component.TitleWithReview
 import ui.component.destinationDetailHeader
 import ui.viewmodel.HomeViewModel
 import util.BOTTOM_NAV_SPACE
@@ -115,7 +140,76 @@ fun topSection(
     Box(
         modifier = Modifier.fillMaxWidth().height(350.dp)
     ) {
-        ImageItem(thumbnail.value)
+        Box {
+            ImageItem(
+                data = thumbnail.value,
+                modifier = Modifier
+                    .drawWithCache {
+                        onDrawWithContent {
+                            drawContent()
+                            drawRect(
+                                Brush.verticalGradient(
+                                    0.4f to Color.Black.copy(alpha = 0F),
+                                    1F to Color.Black
+                                )
+                            )
+                        }
+                    }
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, bottom = 60.dp, end = 16.dp)
+                    .align(Alignment.BottomStart),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Column {
+                    Text(
+                        text = destination.title,
+                        color = White,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Row(
+                        modifier = Modifier.padding(top = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(18.dp),
+                            painter = painterResource(Res.drawable.ci_location),
+                            contentDescription = null,
+                            tint = White
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 8.dp),
+                            text = destination.location,
+                            color = White,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+
+                Column(
+                    modifier = Modifier.padding(top = 4.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = destination.price,
+                        color = White,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontSize = TextUnit(24f, TextUnitType.Sp)
+                    )
+                    Text(
+                        text = "/${destination.type}",
+                        color = White,
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                }
+            }
+        }
         destinationDetailHeader(
             navigator,
             destination,
@@ -144,46 +238,25 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column {
-                Text(
-                    text = destination.title,
-                    color = TextColor,
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Row(
-                    modifier = Modifier.padding(top = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        modifier = Modifier.size(16.dp),
-                        painter = painterResource(Res.drawable.ci_location),
-                        contentDescription = null,
-                        tint = PrimaryColor
-                    )
-                    Text(
-                        modifier = Modifier.padding(start = 8.dp),
-                        text = destination.location,
-                        color = PrimaryColor,
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                }
-            }
-            Column(
-                modifier = Modifier.padding(top = 4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = destination.price,
-                    color = TextColor,
-                    style = MaterialTheme.typography.bodySmall,
-                    fontSize = TextUnit(24f, TextUnitType.Sp)
-                )
-                Text(
-                    text = "/${destination.type}",
-                    color = SecondTextColor,
-                    style = MaterialTheme.typography.labelMedium
-                )
-            }
+            DestinationDetailSubItemRatting(
+                stringResource(Res.string.ratting),
+                destination.rating.toString()
+            )
+            DestinationDetailSubItemDivider()
+            DestinationDetailSubItem(
+                stringResource(Res.string.type),
+                destination.type.toUpperCase(Locale.current)
+            )
+            DestinationDetailSubItemDivider()
+            DestinationDetailSubItem(
+                stringResource(Res.string.estimation),
+                destination.estimation.toUpperCase(Locale.current)
+            )
+            DestinationDetailSubItemDivider()
+            DestinationDetailSubItem(
+                stringResource(Res.string.via),
+                destination.via.toUpperCase(Locale.current)
+            )
         }
 
         Text(
@@ -195,7 +268,12 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
             textAlign = TextAlign.Justify
         )
 
-        TitleWithReview("Preview", "4.8", Res.drawable.star)
+        Text(
+            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp, end = 16.dp),
+            text = stringResource(Res.string.preview),
+            color = TextColor,
+            style = MaterialTheme.typography.bodySmall
+        )
 
         LazyRow(
             modifier = Modifier.padding(start = 25.dp, top = 18.dp),
@@ -210,5 +288,34 @@ fun contentSection(destination: Destination, onImageClicked: (String) -> Unit) {
                 )
             }
         }
+
+        Text(
+            modifier = Modifier.padding(start = 16.dp, top = 30.dp),
+            text = stringResource(Res.string.choose_date),
+            color = TextColor,
+            style = MaterialTheme.typography.bodyMedium
+        )
+
+        DestinationDetailChipItem(destination.dates)
+
+        Text(
+            modifier = Modifier.padding(start = 16.dp, top = 30.dp),
+            text = stringResource(Res.string.choose_meeting_point),
+            color = TextColor,
+            style = MaterialTheme.typography.bodyMedium
+        )
+
+        DestinationDetailChipItem(destination.meetingPoints)
+
+        DestinationDetailPersonQunatityCard(destination)
+
+        Text(
+            modifier = Modifier.padding(start = 16.dp, top = 30.dp),
+            text = stringResource(Res.string.facilities),
+            color = TextColor,
+            style = MaterialTheme.typography.bodyMedium
+        )
+
+        DestinationDetailFacilityItem(destination.facilities)
     }
 }

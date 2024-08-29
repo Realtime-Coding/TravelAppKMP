@@ -52,7 +52,7 @@ fun ProfileScreenView(navigator: Navigator){
     Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         Text(
             modifier = Modifier.wrapContentSize(Alignment.Center),
-            text = "Profile",
+            text = stringResource(Res.string.profile_tab),
             color = TextColor,
             style = MaterialTheme.typography.bodySmall
         )

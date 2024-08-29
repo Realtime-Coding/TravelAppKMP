@@ -121,19 +121,19 @@ fun Typography(): Typography {
             fontSize = 20.sp
         ),
         bodyLarge = TextStyle(
-            fontFamily = craneMedium,
+            fontFamily = craneRegular,
             fontWeight = FontWeight.W500,
-            fontSize = 18.sp
-        ),
-        bodyMedium = TextStyle(
-            fontFamily = craneSemiBold,
-            fontWeight = FontWeight.W600,
             fontSize = 16.sp
         ),
-        bodySmall = TextStyle(
-            fontFamily = craneSemiBold,
-            fontWeight = FontWeight.W600,
+        bodyMedium = TextStyle(
+            fontFamily = craneRegular,
+            fontWeight = FontWeight.W400,
             fontSize = 14.sp
+        ),
+        bodySmall = TextStyle(
+            fontFamily = craneRegular,
+            fontWeight = FontWeight.W300,
+            fontSize = 12.sp
         ),
         displayLarge = TextStyle(
             fontFamily = craneRegular,
@@ -153,7 +153,7 @@ fun Typography(): Typography {
         labelLarge = TextStyle(
             fontFamily = craneRegular,
             fontWeight = FontWeight.W600,
-            fontSize = 12.sp
+            fontSize = 16.sp
         ),
         labelMedium = TextStyle(
             fontFamily = craneRegular,

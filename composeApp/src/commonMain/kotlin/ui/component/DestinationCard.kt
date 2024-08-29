@@ -1,11 +1,13 @@
 package ui.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,12 +27,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import model.Destination
 import util.ImageItem
 import org.jetbrains.compose.resources.painterResource
+import theme.Black
+import theme.BorderColor
 import theme.White
 import theme.CategoryBgColor
 import theme.PrimaryColor
@@ -38,9 +45,11 @@ import theme.Red
 import theme.SecondTextColor
 import theme.TextColor
 import theme.ThirdTextColor
+import theme.Yellow
 import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.ci_location
 import travelbuddy.composeapp.generated.resources.menu_fav
+import travelbuddy.composeapp.generated.resources.star
 
 @Composable
 fun destinationSmallItem(
@@ -293,5 +302,108 @@ fun loadDestinationLargeItems(
                 )
             }
         )
+    }
+}
+
+@Composable
+fun NearestLocationItem(destination: Destination, onItemClicked: (Destination) -> Unit) {
+    Card(
+        modifier = Modifier.width(175.dp)
+            .height(245.dp)
+            .clickable { onItemClicked.invoke(destination) },
+        border = BorderStroke(1.dp, BorderColor),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.cardColors(containerColor = White)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+                .padding(4.dp)
+        ) {
+            Box {
+
+                ImageItem(
+                    modifier = Modifier.height(167.dp)
+                        .drawWithCache {
+                            onDrawWithContent {
+                                drawContent()
+                                drawRect(
+                                    Brush.verticalGradient(
+                                        0.4f to Color.Black.copy(alpha = 0F),
+                                        1F to Color.Black
+                                    )
+                                )
+                            }
+                        },
+                    data = destination.thumbnail
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp, vertical = 8.dp)
+                        .align(Alignment.TopStart),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .background(color = White, shape = RoundedCornerShape(4.dp))
+                            .padding(horizontal = 8.dp, vertical = 2.dp),
+                        text = destination.category.title,
+                        color = Black,
+                        style = MaterialTheme.typography.labelSmall
+                    )
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            modifier = Modifier.size(14.dp),
+                            painter = painterResource(Res.drawable.star),
+                            contentDescription = null,
+                            tint = Yellow
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 4.dp),
+                            text = destination.rating.toString(),
+                            color = White,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 4.dp, vertical = 14.dp)
+                    .align(Alignment.BottomStart)
+            ) {
+                Text(
+                    text = destination.title,
+                    color = TextColor,
+                    style = MaterialTheme.typography.labelMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Row(
+                    modifier = Modifier.padding(top = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(Res.drawable.ci_location),
+                        contentDescription = null,
+                        tint = TextColor
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 8.dp),
+                        text = destination.location,
+                        color = TextColor,
+                        style = MaterialTheme.typography.labelSmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
+
+        }
     }
 }

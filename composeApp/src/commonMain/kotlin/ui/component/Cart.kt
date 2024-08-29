@@ -153,7 +153,7 @@ fun CartCard(
                                     modifier = Modifier
                                         .size(24.dp)
                                         .clickable {
-                                            if (quantity.value > 0)
+                                            if (quantity.value > 1)
                                                 quantity.value -= 1
                                         },
                                     painter = painterResource(resource = Res.drawable.cart_minu),
