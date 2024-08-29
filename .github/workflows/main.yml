@@ -159,13 +159,19 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Build Web
-        run: ./gradlew wasmJsBrowserWebpack
+        run: ./gradlew wasmJsBrowserDistribution
+
+      - name: Archive Web App
+        run: |
+          # Create a zip file of the productionExecutable directory
+          mkdir -p artifacts
+          zip -r artifacts/web-app.zip composeApp/build/dist/wasmJs/productionExecutable
 
       - name: Upload Web artifacts
         uses: actions/upload-artifact@v4
         with:
           name: web-app
-          path: webApp/build/distributions/*.tar.gz
+          path: artifacts/web-app.zip
 
   # Workflow block for generating artifact links
   generate-artifact-links:
