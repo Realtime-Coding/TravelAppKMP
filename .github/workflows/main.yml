@@ -111,6 +111,37 @@ jobs:
           name: desktop-jar
           path: composeApp/build/libs/*.jar
 
+  build-macos:
+    runs-on: macos-14
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Xcode
+        run: xcode-select --switch /Applications/Xcode.app
+
+      - name: Install Dependencies
+        run: brew install create-dmg
+
+      - name: Build macOS app
+        run: |
+          xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace \
+                     -scheme iosApp \
+                     -configuration Release \
+                     -sdk macosx \
+                     clean build
+
+      - name: Create DMG
+        run: |
+          create-dmg 'path/to/your/app.app' 'path/to/output/directory'
+          # Adjust paths as needed
+
+      - name: Upload DMG
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-dmg
+          path: path/to/output/directory/*.dmg        
+
   build-web:
     runs-on: ubuntu-latest
     steps:
