@@ -18,8 +18,8 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'   # Specify the JDK version here
-          distribution: 'zulu' # You can also use 'adoptopenjdk' or 'temurin' if needed
+          java-version: '17'
+          distribution: 'zulu'
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
@@ -30,11 +30,11 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Build Android
-        run: ./gradlew assembleRelease --info   # Added --info for detailed logs
+        run: ./gradlew assembleRelease --info
 
       - name: Run Unit Tests
         run: ./gradlew test
-        
+
       - name: Build iOS shared code
         run: ./gradlew :composeApp:compileKotlinIosSimulatorArm64
 
@@ -65,8 +65,16 @@ jobs:
             echo "Xcode Command Line Tools are already installed"
           fi
 
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods
+
+      - name: Install Pods
+        run: |
+          cd iosApp
+          pod install
+
       - name: Build iOS
-        run: xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14' build
+        run: xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcworkspace -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14' build
 
       - name: Upload iOS artifacts
         uses: actions/upload-artifact@v3
@@ -113,6 +121,6 @@ jobs:
       - name: List artifacts
         run: |
           echo "Artifact URLs for download:"
-          echo "Android APK: ${{ steps.upload-android-artifacts.outputs.artifact-url }}"
-          echo "iOS Framework: ${{ steps.upload-ios-artifacts.outputs.artifact-url }}"
-          echo "Desktop JAR: ${{ steps.upload-desktop-artifacts.outputs.artifact-url }}"
+          echo "Android APK: ${{ needs.build-android.outputs.artifact-url }}"
+          echo "iOS Framework: ${{ needs.build-ios.outputs.artifact-url }}"
+          echo "Desktop JAR: ${{ needs.build-desktop.outputs.artifact-url }}"
