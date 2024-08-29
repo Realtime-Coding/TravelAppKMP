@@ -1,1 +1,22 @@
+name: Generate Artifact Links
 
+on:
+  workflow_run:
+    workflows: ["Build Android", "Build iOS", "Build Desktop", "Build macOS", "Build Web"]
+    types:
+      - completed
+
+jobs:
+  generate-artifact-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: List artifacts
+        run: |
+          echo "Artifact URLs for download:"
+          echo "Android APK: ${{ needs.build-android.outputs.artifact-url }}"
+          echo "iOS Framework: ${{ needs.build-ios.outputs.artifact-url }}"
+          echo "Desktop JAR: ${{ needs.build-desktop.outputs.artifact-url }}"
+          echo "Web App: ${{ needs.build-web.outputs.artifact-url }}"
