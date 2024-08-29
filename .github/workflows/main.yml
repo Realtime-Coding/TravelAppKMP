@@ -71,7 +71,7 @@ jobs:
         run: |
           xcodebuild -allowProvisioningUpdates \
             -workspace iosApp/iosApp.xcodeproj/project.xcworkspace \
-            -scheme TravelBuddy \
+            -scheme iosApp \
             -configuration Release \
             -sdk iphoneos \
             -destination 'generic/platform=iOS' \
@@ -84,20 +84,27 @@ jobs:
           echo "Listing contents of the DerivedData directory:"
           ls -R ~/Library/Developer/Xcode/DerivedData
 
-      - name: Archive iOS app
+      - name: Find the latest .app file
+        id: find-app
         run: |
-          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "TravelBuddy.app")
-          if [ -z "$APP_PATH" ]; then
-            echo "Error: TravelBuddy.app not found!"
+          # Find all .app directories and sort them by modification time
+          LATEST_APP=$(find ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d -print0 | xargs -0 stat -f "%m %N" | sort -nr | head -n 1 | cut -d ' ' -f 2-)
+          if [ -z "$LATEST_APP" ]; then
+            echo "Error: No .app file found!"
             exit 1
           fi
-          cp -R "$APP_PATH" .
+          echo "Found latest .app file at $LATEST_APP"
+          echo "LATEST_APP=$LATEST_APP" >> $GITHUB_ENV
+
+      - name: Archive iOS app
+        run: |
+          cp -R "$LATEST_APP" .
 
       - name: Upload iOS app
         uses: actions/upload-artifact@v4
         with:
           name: ios-app
-          path: TravelBuddy.app
+          path: "*.app"
 
   # Workflow block for building Desktop
   build-desktop:
