@@ -115,7 +115,7 @@ jobs:
 
       - name: Build macOS app
         run: |
-          xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Release -sdk macosx clean build
+          xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Release -sdk macosx clean build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
           
       - name: Create DMG
         run: |
