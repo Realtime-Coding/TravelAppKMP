@@ -18,7 +18,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '17'   # Specify the JDK version here
           distribution: 'zulu' # You can also use 'adoptopenjdk' or 'temurin' if needed
 
       - name: Cache Gradle packages
@@ -30,7 +30,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Build Android
-        run: ./gradlew assembleRelease --info
+        run: ./gradlew assembleRelease --info   # Added --info for detailed logs
 
       - name: Upload Android artifacts
         uses: actions/upload-artifact@v3
