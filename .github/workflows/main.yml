@@ -69,13 +69,18 @@ jobs:
 
       - name: Build iOS
         run: |
-          xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Debug -sdk iphoneos -destination name='iPhone 14' build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
+          xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
 
-      - name: Upload iOS artifacts
+      - name: Archive iOS app
+        run: |
+          # Assuming the build product is in the Release-iphoneos directory
+          cp -R ~/Library/Developer/Xcode/DerivedData/iosApp-*/Build/Products/Release-iphoneos/iosApp.app .
+
+      - name: Upload iOS app
         uses: actions/upload-artifact@v4
         with:
-          name: ios-framework
-          path: build/ios/Debug-iphonesimulator/*.app
+          name: ios-app
+          path: iosApp.app
 
   # Workflow block for building Desktop
   build-desktop:
