@@ -69,12 +69,29 @@ jobs:
 
       - name: Build iOS
         run: |
-          xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
+          xcodebuild -allowProvisioningUpdates \
+            -workspace iosApp/iosApp.xcodeproj/project.xcworkspace \
+            -scheme iosApp \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            build CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM=""
+
+      - name: List Xcode build products
+        run: |
+          echo "Listing contents of the DerivedData directory:"
+          ls -R ~/Library/Developer/Xcode/DerivedData
 
       - name: Archive iOS app
         run: |
-          # Assuming the build product is in the Release-iphoneos directory
-          cp -R ~/Library/Developer/Xcode/DerivedData/iosApp-*/Build/Products/Release-iphoneos/iosApp.app .
+          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "iosApp.app")
+          if [ -z "$APP_PATH" ]; then
+            echo "Error: iosApp.app not found!"
+            exit 1
+          fi
+          cp -R "$APP_PATH" .
 
       - name: Upload iOS app
         uses: actions/upload-artifact@v4
