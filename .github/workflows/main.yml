@@ -32,6 +32,12 @@ jobs:
       - name: Build Android
         run: ./gradlew assembleRelease --info   # Added --info for detailed logs
 
+      - name: Run Unit Tests
+        run: ./gradlew test
+        
+      - name: Build iOS shared code
+        run: ./gradlew :composeApp:compileKotlinIosSimulatorArm64
+
       - name: Upload Android artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -39,13 +45,13 @@ jobs:
           path: app/build/outputs/apk/release/*.apk
 
   build-ios:
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'zulu'
