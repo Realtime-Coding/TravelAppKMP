@@ -1,0 +1,34 @@
+name: Build macOS
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-macos:
+    runs-on: macos-14
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: brew install create-dmg
+
+      - name: Build macOS app
+        run: |
+          xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Release -sdk macosx clean build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
+
+      - name: Create DMG
+        run: |
+          create-dmg 'path/to/your/app.app' 'path/to/output/directory'
+          # Adjust paths as needed
+
+      - name: Upload DMG
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-dmg
+          path: path/to/output/directory/*.dmg
