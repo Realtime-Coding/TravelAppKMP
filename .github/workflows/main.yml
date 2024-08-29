@@ -128,14 +128,13 @@ jobs:
 
       - name: Create DMG
         run: |
-          create-dmg 'path/to/your/app.app' 'path/to/output/directory'
-          # Adjust paths as needed
+          ./gradlew packageDmg
 
       - name: Upload DMG
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-dmg
-          path: path/to/output/directory/*.dmg
+          path: composeApp/build/compose/binaries/main/dmg/*.dmg
 
   # Workflow block for building Web
   build-web:
