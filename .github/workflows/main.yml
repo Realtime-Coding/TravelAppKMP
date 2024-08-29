@@ -110,9 +110,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Xcode
-        run: xcode-select --switch /Applications/Xcode.app
-
       - name: Install Dependencies
         run: brew install create-dmg
 
