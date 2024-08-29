@@ -37,10 +37,10 @@ https://drive.google.com/file/d/1aDrhqpvc4XUdEaO-6aBZrE6HRFglDnl_/view?usp=shari
 - [x] Bottom Navigation Menu.
 - [x] Compose resources e-g images, strings and fonts.
 - [x] Voyager (Navigation).
+- [x] Cart Screen Design.
 
 ### 🚧 Work in progress
 
-- [ ] Cart Screen Design.
 - [ ] Profile Screen Design.
 - [ ] Room setup for adding favorites.
 - [ ] Switch for dark/light theme.
