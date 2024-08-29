@@ -165,15 +165,24 @@ jobs:
   # Workflow block for generating artifact links
   generate-artifact-links:
     runs-on: ubuntu-latest
-    needs: [ build-android, build-ios, build-desktop,build-macos, build-web ]
+    needs: [ build-android, build-ios, build-desktop, build-web ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: List artifacts
+      - name: Get Artifact URLs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          # Get the run ID
+          RUN_ID=$(echo "${{ github.run_id }}")
+          REPO=${{ github.repository }}
+          
+          # Fetch the list of artifacts
+          ARTIFACTS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/actions/runs/$RUN_ID/artifacts")
+          
+          # Extract URLs for each artifact
           echo "Artifact URLs for download:"
-          echo "Android APK: ${{ needs.build-android.outputs.artifact-url }}"
-          echo "iOS Framework: ${{ needs.build-ios.outputs.artifact-url }}"
-          echo "Desktop JAR: ${{ needs.build-desktop.outputs.artifact-url }}"
-          echo "Web App: ${{ needs.build-web.outputs.artifact-url }}"
+          for url in $(echo "$ARTIFACTS" | jq -r '.artifacts[] | "\(.name) - \(.archive_download_url)"'); do
+            echo "$url"
+          done
