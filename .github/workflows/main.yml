@@ -71,7 +71,7 @@ jobs:
         run: |
           xcodebuild -allowProvisioningUpdates \
             -workspace iosApp/iosApp.xcodeproj/project.xcworkspace \
-            -scheme iosApp \
+            -scheme TravelBuddy \
             -configuration Release \
             -sdk iphoneos \
             -destination 'generic/platform=iOS' \
@@ -86,9 +86,9 @@ jobs:
 
       - name: Archive iOS app
         run: |
-          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "iosApp.app")
+          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "TravelBuddy.app")
           if [ -z "$APP_PATH" ]; then
-            echo "Error: iosApp.app not found!"
+            echo "Error: TravelBuddy.app not found!"
             exit 1
           fi
           cp -R "$APP_PATH" .
@@ -97,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ios-app
-          path: iosApp.app
+          path: TravelBuddy.app
 
   # Workflow block for building Desktop
   build-desktop:
