@@ -34,7 +34,7 @@ fun ArticleCard(modifier: Modifier, article: Article, onClick: (Article) -> Unit
     Card(
         modifier = modifier
             .clickable { onClick.invoke(article) }
-            .padding(start = 16.dp, top = 30.dp, end = 16.dp),
+            .padding(start = 16.dp, top = 8.dp, end = 16.dp),
         shape = RoundedCornerShape(20.dp),
         border = BorderStroke(1.dp, BorderColor),
         elevation = CardDefaults.cardElevation(),
