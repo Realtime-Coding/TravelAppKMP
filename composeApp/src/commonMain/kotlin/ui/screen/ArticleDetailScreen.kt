@@ -100,7 +100,7 @@ private fun contentSection(article: Article, onImageClicked: (String) -> Unit) {
             )
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 28.dp, end = 16.dp),
+            modifier = Modifier.fillMaxWidth().padding(top = 28.dp),
         ) {
             val horizontalSpace = 16.dp
             ArticleBodyHeader(

@@ -39,6 +39,7 @@ import travelbuddy.composeapp.generated.resources.home_tab
 import travelbuddy.composeapp.generated.resources.menu_home
 import travelbuddy.composeapp.generated.resources.popular_destination
 import travelbuddy.composeapp.generated.resources.view_all
+import ui.component.ArticleCard
 import ui.component.ChildLayout
 import ui.component.LoadItemAfterSafeCast
 import ui.component.NearestLocationItem
@@ -237,7 +238,7 @@ fun HomeScreenView(
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         FakeArticles.articles.forEach {
-                            ArticleOther(modifier = Modifier, article = it) {
+                            ArticleCard(modifier = Modifier, article = it) {
                                 viewModel.setBottomNavBarVisible(false)
                                 navigator.push(ArticleDetailScreen(it))
                             }
