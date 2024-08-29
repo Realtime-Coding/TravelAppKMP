@@ -66,13 +66,21 @@ jobs:
           fi
 
       - name: Build iOS
-        run: xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14' build
-
+        run: xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace \
+             -scheme iosApp \
+             -configuration Debug \
+             -sdk iphoneos \
+             -destination 'name=iPhone 14' \
+             clean build \
+             CODE_SIGNING_REQUIRED=NO \
+             CODE_SIGN_IDENTITY="" \
+             DEVELOPMENT_TEAM=""
+                   
       - name: Upload iOS artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ios-framework
-          path: build/bin/ios/arm64/debugFramework/*.framework
+          path: build/ios/Debug-iphonesimulator/*.app
 
   build-desktop:
     runs-on: ubuntu-latest
