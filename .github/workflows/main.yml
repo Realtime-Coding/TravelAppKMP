@@ -1,173 +1,173 @@
-# name: Kotlin Multiplatform CI/CD
+ name: Kotlin Multiplatform CI/CD
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
+ on:
+   push:
+     branches:
+       - main
+   pull_request:
+     branches:
+       - main
 
-# jobs:
-#   build-android:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+ jobs:
+   build-android:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v4
 
-#       - name: Set up JDK
-#         uses: actions/setup-java@v4
-#         with:
-#           java-version: '17'
-#           distribution: 'zulu'
+       - name: Set up JDK
+         uses: actions/setup-java@v4
+         with:
+           java-version: '17'
+           distribution: 'zulu'
 
-#       - name: Cache Gradle packages
-#         uses: actions/cache@v4
-#         with:
-#           path: ~/.gradle/caches
-#           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-#           restore-keys: |
-#             ${{ runner.os }}-gradle-
+       - name: Cache Gradle packages
+         uses: actions/cache@v4
+         with:
+           path: ~/.gradle/caches
+           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+           restore-keys: |
+             ${{ runner.os }}-gradle-
 
-#       - name: Build Android
-#         run: ./gradlew assembleRelease --info
+       - name: Build Android
+         run: ./gradlew assembleRelease --info
 
-#       - name: Run Unit Tests
-#         run: ./gradlew test
+       - name: Run Unit Tests
+         run: ./gradlew test
 
-#       - name: Build iOS shared code
-#         run: ./gradlew :composeApp:compileKotlinIosSimulatorArm64
+       - name: Build iOS shared code
+         run: ./gradlew :composeApp:compileKotlinIosSimulatorArm64
 
-#       - name: Upload Android artifacts
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: android-release-apk
-#           path: composeApp/build/outputs/apk/release/*.apk
+       - name: Upload Android artifacts
+         uses: actions/upload-artifact@v4
+         with:
+           name: android-release-apk
+           path: composeApp/build/outputs/apk/release/*.apk
 
-#   build-ios:
-#     runs-on: macos-14
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+   build-ios:
+     runs-on: macos-14
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v4
 
-#       - name: Set up JDK
-#         uses: actions/setup-java@v4
-#         with:
-#           java-version: '17'
-#           distribution: 'zulu'
+       - name: Set up JDK
+         uses: actions/setup-java@v4
+         with:
+           java-version: '17'
+           distribution: 'zulu'
 
-#       - name: Install Xcode Command Line Tools
-#         run: |
-#           if ! xcode-select --print-path > /dev/null 2>&1; then
-#             echo "Xcode Command Line Tools are not installed. Installing..."
-#             xcode-select --install || echo "Failed to install Xcode Command Line Tools"
-#           else
-#             echo "Xcode Command Line Tools are already installed"
-#           fi
+       - name: Install Xcode Command Line Tools
+         run: |
+           if ! xcode-select --print-path > /dev/null 2>&1; then
+             echo "Xcode Command Line Tools are not installed. Installing..."
+             xcode-select --install || echo "Failed to install Xcode Command Line Tools"
+           else
+             echo "Xcode Command Line Tools are already installed"
+           fi
 
-#       - name: Build iOS
-#         run: | 
-#           xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Debug -sdk iphoneos -destination name='iPhone 14' build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
+       - name: Build iOS
+         run: | 
+           xcodebuild -allowProvisioningUpdates -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Debug -sdk iphoneos -destination name='iPhone 14' build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
                    
-#       - name: Upload iOS artifacts
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: ios-framework
-#           path: build/ios/Debug-iphonesimulator/*.app
+       - name: Upload iOS artifacts
+         uses: actions/upload-artifact@v4
+         with:
+           name: ios-framework
+           path: build/ios/Debug-iphonesimulator/*.app
 
-#   build-desktop:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+   build-desktop:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v4
 
-#       - name: Set up JDK
-#         uses: actions/setup-java@v4
-#         with:
-#           java-version: '17'
-#           distribution: 'zulu'
+       - name: Set up JDK
+         uses: actions/setup-java@v4
+         with:
+           java-version: '17'
+           distribution: 'zulu'
 
-#       - name: Cache Gradle packages
-#         uses: actions/cache@v4
-#         with:
-#           path: ~/.gradle/caches
-#           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-#           restore-keys: |
-#             ${{ runner.os }}-gradle-
+       - name: Cache Gradle packages
+         uses: actions/cache@v4
+         with:
+           path: ~/.gradle/caches
+           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+           restore-keys: |
+             ${{ runner.os }}-gradle-
 
-#       - name: Build Desktop
-#         run: ./gradlew desktopJar
+       - name: Build Desktop
+         run: ./gradlew desktopJar
 
-#       - name: Upload Desktop artifacts
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: desktop-jar
-#           path: composeApp/build/libs/*.jar
+       - name: Upload Desktop artifacts
+         uses: actions/upload-artifact@v4
+         with:
+           name: desktop-jar
+           path: composeApp/build/libs/*.jar
 
-#   build-macos:
-#     runs-on: macos-14
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+   build-macos:
+     runs-on: macos-14
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v4
 
-#       - name: Install Dependencies
-#         run: brew install create-dmg
+       - name: Install Dependencies
+         run: brew install create-dmg
 
-#       - name: Build macOS app
-#         run: |
-#           xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Release -sdk macosx clean build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
+       - name: Build macOS app
+         run: |
+           xcodebuild -workspace iosApp/iosApp.xcodeproj/project.xcworkspace -scheme iosApp -configuration Release -sdk macosx clean build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM=""
           
-#       - name: Create DMG
-#         run: |
-#           create-dmg 'path/to/your/app.app' 'path/to/output/directory'
-#           # Adjust paths as needed
+       - name: Create DMG
+         run: |
+           create-dmg 'path/to/your/app.app' 'path/to/output/directory'
+           # Adjust paths as needed
 
-#       - name: Upload DMG
-#         uses: actions/upload-artifact@v3
-#         with:
-#           name: macos-dmg
-#           path: path/to/output/directory/*.dmg        
+       - name: Upload DMG
+         uses: actions/upload-artifact@v3
+         with:
+           name: macos-dmg
+           path: path/to/output/directory/*.dmg
 
-#   build-web:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+   build-web:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v4
 
-#       - name: Set up JDK
-#         uses: actions/setup-java@v4
-#         with:
-#           java-version: '17'
-#           distribution: 'zulu'
+       - name: Set up JDK
+         uses: actions/setup-java@v4
+         with:
+           java-version: '17'
+           distribution: 'zulu'
 
-#       - name: Cache Gradle packages
-#         uses: actions/cache@v4
-#         with:
-#           path: ~/.gradle/caches
-#           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-#           restore-keys: |
-#             ${{ runner.os }}-gradle-
+       - name: Cache Gradle packages
+         uses: actions/cache@v4
+         with:
+           path: ~/.gradle/caches
+           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+           restore-keys: |
+             ${{ runner.os }}-gradle-
 
-#       - name: Build Web
-#         run: ./gradlew wasmJsBrowserWebpack
+       - name: Build Web
+         run: ./gradlew wasmJsBrowserWebpack
 
-#       - name: Upload Web artifacts
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: web-app
-#           path: webApp/build/distributions/*.tar.gz
+       - name: Upload Web artifacts
+         uses: actions/upload-artifact@v4
+         with:
+           name: web-app
+           path: webApp/build/distributions/*.tar.gz
 
-#   generate-artifact-links:
-#     runs-on: ubuntu-latest
-#     needs: [build-android, build-ios, build-desktop, build-web]
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+   generate-artifact-links:
+     runs-on: ubuntu-latest
+     needs: [build-android, build-ios, build-desktop, build-web]
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v4
 
-#       - name: List artifacts
-#         run: |
-#           echo "Artifact URLs for download:"
-#           echo "Android APK: ${{ needs.build-android.outputs.artifact-url }}"
-#           echo "iOS Framework: ${{ needs.build-ios.outputs.artifact-url }}"
-#           echo "Desktop JAR: ${{ needs.build-desktop.outputs.artifact-url }}"
-#           echo "Web App: ${{ needs.build-web.outputs.artifact-url }}"
+       - name: List artifacts
+         run: |
+           echo "Artifact URLs for download:"
+           echo "Android APK: ${{ needs.build-android.outputs.artifact-url }}"
+           echo "iOS Framework: ${{ needs.build-ios.outputs.artifact-url }}"
+           echo "Desktop JAR: ${{ needs.build-desktop.outputs.artifact-url }}"
+           echo "Web App: ${{ needs.build-web.outputs.artifact-url }}"
