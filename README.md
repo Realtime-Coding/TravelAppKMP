@@ -38,6 +38,9 @@ https://drive.google.com/file/d/1aDrhqpvc4XUdEaO-6aBZrE6HRFglDnl_/view?usp=shari
 - [x] Compose resources e-g images, strings and fonts.
 - [x] Voyager (Navigation).
 - [x] Cart Screen Design.
+- [x] CI/CD Configure for IOS, Android, MacOS, Window, Web.
+- [x] CI/CD generate artifacts to download
+- [x] CI/CD to publish web app on github pages
 
 ### 🚧 Work in progress
 
