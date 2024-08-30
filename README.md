@@ -4,7 +4,10 @@ Travel App is a simple **mobile application** built to demonstrate the use of
 _**Kotlin Multiplatform Mobile**_ for developing _Android and iOS_ applications
 using **Jetpack Compose** 🚀.
 
-## ![](https://img.shields.io/badge/Android-black.svg?style=for-the-badge&logo=android) ![](https://img.shields.io/badge/iOS-black.svg?style=for-the-badge&logo=apple)  
+## ![Android](https://img.shields.io/badge/Android-black.svg?style=for-the-badge&logo=android) ![IOS](https://img.shields.io/badge/iOS-black.svg?style=for-the-badge&logo=apple) ![MacOS](https://img.shields.io/badge/macOS-black.svg?style=for-the-badge&logo=apple) ![MSI](https://img.shields.io/badge/MSI-black.svg?style=for-the-badge&logo=windows) ![Desktop Windows](https://img.shields.io/badge/Desktop%20Windows-black.svg?style=for-the-badge&logo=windows) ![Web](https://img.shields.io/badge/Web-black.svg?style=for-the-badge&logo=internet-explorer)
+
+
+  
 
 <img width="90%" alt="Cover-Travel-App-KMM" src="https://github.com/Realtime-Coding/TravelAppKMM/assets/21146457/a3d06c1e-cfa8-4b4f-99e0-4bb8288a37c9">
 
