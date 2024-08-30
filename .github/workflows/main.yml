@@ -160,6 +160,21 @@ jobs:
           name: macos-dmg
           path: composeApp/build/compose/binaries/main/dmg/*.dmg
 
+  build-msi:
+    runs-on: macos-14
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Msi app
+        run: ./gradlew packageMsi
+
+      - name: Upload MSI
+        uses: actions/upload-artifact@v4
+        with:
+          name: msi
+          path: composeApp/build/compose/binaries/main/app/*.app
+
   # Workflow block for building Web
   build-web:
     runs-on: ubuntu-latest
@@ -206,7 +221,7 @@ jobs:
   # Workflow block for generating artifact links
   generate-artifact-links:
     runs-on: ubuntu-latest
-    needs: [ build-android, build-ios, build-desktop,build-macos, build-web ]
+    needs: [ build-android, build-ios, build-desktop,build-macos, build-msi, build-web ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
