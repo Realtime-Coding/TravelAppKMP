@@ -78,7 +78,7 @@ fun CartScreenView(
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp),
                     text = stringResource(Res.string.cart_tab),
                     color = TextColor,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
             }

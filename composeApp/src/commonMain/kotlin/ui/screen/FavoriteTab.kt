@@ -88,7 +88,7 @@ fun FavoriteScreenView(
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp),
                     text = stringResource(Res.string.favorite_destination),
                     color = TextColor,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
             }

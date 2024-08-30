@@ -9,7 +9,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.CurrentTab
-import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import coil3.ImageLoader
 import coil3.PlatformContext
@@ -26,7 +25,7 @@ import ui.component.tabs
 import ui.screen.CartTab
 import ui.screen.FavoriteTab
 import ui.screen.HomeTab
-import ui.screen.ProfileTab
+import ui.screen.GeminiTab
 import ui.viewmodel.HomeViewModel
 import util.AnimateVisibility
 
@@ -58,7 +57,7 @@ internal fun App(
                                 HomeTab -> LocalNavigator.currentOrThrow.push(HomeTab)
                                 FavoriteTab -> LocalNavigator.currentOrThrow.push(FavoriteTab)
                                 CartTab -> LocalNavigator.currentOrThrow.push(CartTab)
-                                ProfileTab -> LocalNavigator.currentOrThrow.push(ProfileTab)
+                                GeminiTab -> LocalNavigator.currentOrThrow.push(GeminiTab)
                             }
                         }
                     }

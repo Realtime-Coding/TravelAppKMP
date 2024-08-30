@@ -1,5 +1,11 @@
 package ui.screen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -18,7 +24,6 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -32,29 +37,24 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
-import com.mikepenz.markdown.m3.markdownTypography
-import com.mikepenz.markdown.model.MarkdownTypography
 import data.GeminiApi
 import dev.shreyaspatil.ai.client.generativeai.type.GenerateContentResponse
 import io.github.vinceglb.filekit.compose.rememberFilePickerLauncher
@@ -63,7 +63,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import theme.BorderColor
 import theme.CodeBackground
 import theme.LinkColor
@@ -71,12 +70,14 @@ import theme.PrimaryColor
 import theme.TextColor
 import toComposeImageBitmap
 import travelbuddy.composeapp.generated.resources.Res
+import travelbuddy.composeapp.generated.resources.gemini
 import travelbuddy.composeapp.generated.resources.menu_profile
 import travelbuddy.composeapp.generated.resources.profile_tab
+import ui.component.ShimmerAnimation
 import ui.component.Tabx
 import util.BOTTOM_NAV_SPACE
 
-data object ProfileTab : Tabx {
+data object GeminiTab : Tabx {
     override fun defaultTitle(): StringResource = Res.string.profile_tab
     override fun defaultIcon(): DrawableResource = Res.drawable.menu_profile
 
@@ -98,13 +99,13 @@ data object ProfileTab : Tabx {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        ProfileScreenView(navigator)
+        GeminiScreenView(navigator)
     }
 }
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreenView(navigator: Navigator){
+fun GeminiScreenView(navigator: Navigator){
     val api = remember { GeminiApi() }
     val coroutineScope = rememberCoroutineScope()
     var prompt by remember { mutableStateOf("") }
@@ -113,11 +114,7 @@ fun ProfileScreenView(navigator: Navigator){
     var showProgress by remember { mutableStateOf(false) }
     var filePath by remember { mutableStateOf("") }
     var image by remember { mutableStateOf<ImageBitmap?>(null) }
-    val canClearPrompt by remember {
-        derivedStateOf {
-            prompt.isNotBlank()
-        }
-    }
+    val canClearPrompt by remember { derivedStateOf { prompt.isNotBlank() } }
 
     Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         val imagePickerLauncher = rememberFilePickerLauncher(PickerType.Image) { selectedImage ->
@@ -134,7 +131,17 @@ fun ProfileScreenView(navigator: Navigator){
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth().padding(16.dp)
         ) {
-            FlowRow {
+            Text(
+                modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 26.dp),
+                text = stringResource(Res.string.gemini),
+                color = TextColor,
+                style = MaterialTheme.typography.headlineMedium,
+                textAlign = TextAlign.Center
+            )
+
+            FlowRow(
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+            ) {
                 OutlinedTextField(
                     value = prompt,
                     onValueChange = { prompt = it },
@@ -181,6 +188,7 @@ fun ProfileScreenView(navigator: Navigator){
                                     .onStart { showProgress = true }
                                     .onCompletion { showProgress = false }
                                     .collect {
+                                        showProgress = false
                                         println("response = ${it.text}")
                                         content += it.text
                                     }
@@ -237,7 +245,13 @@ fun ProfileScreenView(navigator: Navigator){
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CircularProgressIndicator()
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        repeat(5) {
+                            ShimmerAnimation()
+                        }
+                    }
                 }
             } else {
                 SelectionContainer {
