@@ -184,6 +184,12 @@ jobs:
       - name: Build Web
         run: ./gradlew wasmJsBrowserDistribution
 
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: composeApp/build/dist/wasmJs/productionExecutable
+
       - name: Archive Web App
         run: |
           # Create a zip file of the productionExecutable directory
@@ -196,21 +202,6 @@ jobs:
           name: web-app
           path: artifacts/web-app.zip
 
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build
-        run: |
-          ./gradlew wasmJsBrowserDistribution
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: composeApp/build/dist/wasmJs/productionExecutable
 
   # Workflow block for generating artifact links
   generate-artifact-links:
