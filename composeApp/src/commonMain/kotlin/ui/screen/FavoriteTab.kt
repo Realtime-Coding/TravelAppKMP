@@ -20,10 +20,10 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import data.FakeFavorites
 import model.Destination
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import ui.component.LoadItemAfterSafeCast
@@ -33,10 +33,13 @@ import travelbuddy.composeapp.generated.resources.Res
 import travelbuddy.composeapp.generated.resources.fav_tab
 import travelbuddy.composeapp.generated.resources.favorite_destination
 import travelbuddy.composeapp.generated.resources.menu_fav
+import ui.component.Tabx
 import ui.viewmodel.HomeViewModel
 import util.BOTTOM_NAV_SPACE
 
-data object FavoriteTab : Tab {
+data object FavoriteTab : Tabx {
+    override fun defaultTitle(): StringResource = Res.string.fav_tab
+    override fun defaultIcon(): DrawableResource = Res.drawable.menu_fav
 
     override val options: TabOptions
         @Composable

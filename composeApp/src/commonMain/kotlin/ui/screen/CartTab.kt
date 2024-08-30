@@ -19,9 +19,10 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import model.Destination
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import theme.TextColor
@@ -30,10 +31,13 @@ import travelbuddy.composeapp.generated.resources.cart_tab
 import travelbuddy.composeapp.generated.resources.menu_cart
 import ui.component.CartCard
 import ui.component.LoadItemAfterSafeCast
+import ui.component.Tabx
 import ui.viewmodel.HomeViewModel
 import util.BOTTOM_NAV_SPACE
 
-data object CartTab : Tab {
+data object CartTab : Tabx {
+    override fun defaultTitle(): StringResource = Res.string.cart_tab
+    override fun defaultIcon(): DrawableResource = Res.drawable.menu_cart
 
     override val options: TabOptions
         @Composable

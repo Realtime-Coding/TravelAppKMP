@@ -29,20 +29,25 @@ import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import util.AnimateVisibility
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import theme.White
 import theme.PrimaryColor
 import theme.SecondTextColor
-import travelbuddy.composeapp.generated.resources.Res
-import travelbuddy.composeapp.generated.resources.star
 import ui.screen.CartTab
 import ui.screen.FavoriteTab
 import ui.screen.HomeTab
 import ui.screen.ProfileTab
 
+interface Tabx: Tab {
+    fun defaultTitle(): StringResource
+    fun defaultIcon(): DrawableResource
+}
 
-val tabs = arrayListOf<Tab>().apply {
+val tabs = arrayListOf<Tabx>().apply {
     add(HomeTab)
     add(FavoriteTab)
     add(CartTab)
@@ -51,9 +56,9 @@ val tabs = arrayListOf<Tab>().apply {
 
 @Composable
 private fun BottomMenuItem(
-    tab: Tab,
+    tab: Tabx,
     tabNavigator: TabNavigator,
-    onItemClicked: @Composable (Tab) -> Unit
+    onItemClicked: @Composable (Tabx) -> Unit
 ) {
     var visible by remember { mutableStateOf(false) }
     if (visible) {
@@ -66,13 +71,13 @@ private fun BottomMenuItem(
     ) {
         Icon(
             modifier = Modifier.size(34.dp).clickable { visible = true },
-            painter = tab.options.icon ?: painterResource(Res.drawable.star),
-            contentDescription = tab.options.title,
+            painter = painterResource(tab.defaultIcon()),
+            contentDescription = stringResource(tab.defaultTitle()),
             tint = if (tabNavigator.current == tab) PrimaryColor else SecondTextColor
         )
         Text(
             modifier = Modifier,
-            text = tab.options.title,
+            text = stringResource(tab.defaultTitle()),
             color = if (tabNavigator.current == tab) PrimaryColor else SecondTextColor,
             style = MaterialTheme.typography.bodySmall
         )
@@ -96,7 +101,7 @@ private fun BottomMenuItem(
 @Composable
 fun BottomMenuBar(
     modifier: Modifier = Modifier,
-    tabs: List<Tab>,
+    tabs: List<Tabx>,
     onItemClicked: @Composable (Tab) -> Unit,
 ) {
     Box(
@@ -122,7 +127,7 @@ fun BottomMenuBar(
 }
 
 @Composable
-private fun LazyItemScope.TabNavigationItem(tab: Tab, onItemClicked: @Composable (Tab) -> Unit) {
+private fun TabNavigationItem(tab: Tabx, onItemClicked: @Composable (Tabx) -> Unit) {
     val tabNavigator = LocalTabNavigator.current
     BottomMenuItem(tab,tabNavigator) {
         onItemClicked.invoke(it)

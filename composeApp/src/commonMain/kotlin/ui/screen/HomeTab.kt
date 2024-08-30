@@ -3,11 +3,9 @@ package ui.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -25,11 +23,11 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import data.FakeArticles
-import model.Article
 import model.Destination
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import travelbuddy.composeapp.generated.resources.Res
@@ -43,9 +41,9 @@ import ui.component.ArticleCard
 import ui.component.ChildLayout
 import ui.component.LoadItemAfterSafeCast
 import ui.component.NearestLocationItem
+import ui.component.Tabx
 import ui.component.TitleWithViewAllItem
 import ui.component.VerticalScrollLayout
-import ui.component.article.ArticleOther
 import ui.component.destinationSmallItem
 import ui.component.homeHeader
 import ui.component.loadCategoryItems
@@ -64,7 +62,10 @@ enum class HomeScreenContents {
     DESTINATION_SMALL_SECTION,
 }
 
-data object HomeTab : Tab {
+data object HomeTab : Tabx {
+    override fun defaultTitle(): StringResource = Res.string.home_tab
+    override fun defaultIcon(): DrawableResource = Res.drawable.menu_home
+
     override val options: TabOptions
         @Composable
         get() {
