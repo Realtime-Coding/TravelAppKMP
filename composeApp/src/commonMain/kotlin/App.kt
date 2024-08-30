@@ -4,6 +4,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -82,3 +83,5 @@ fun newDiskCache(): DiskCache {
         .maxSizeBytes(1024L * 1024 * 1024) // 512MB
         .build()
 }
+
+expect fun ByteArray.toComposeImageBitmap(): ImageBitmap
