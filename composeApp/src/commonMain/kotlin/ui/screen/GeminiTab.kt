@@ -104,11 +104,6 @@ data object GeminiTab : Tabx {
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun GeminiScreenView(navigator: Navigator, viewModel: HomeScreenModel){
-    val navigateToGemini by viewModel.navigateToGemini.collectAsState()
-    var prompt by remember { mutableStateOf("") }
-    if (navigateToGemini.second != null) {
-        prompt = "Please search the desting by title and provide maximum information  as a tourist I want to know about the place. Here is the title: ${navigateToGemini.second?.title}"
-    }
     viewModel.setBottomNavBarVisible(true)
     val api = remember { GeminiApi() }
     val coroutineScope = rememberCoroutineScope()
@@ -117,7 +112,37 @@ fun GeminiScreenView(navigator: Navigator, viewModel: HomeScreenModel){
     var showProgress by remember { mutableStateOf(false) }
     var filePath by remember { mutableStateOf("") }
     var image by remember { mutableStateOf<ImageBitmap?>(null) }
+    val navigateToGemini by viewModel.navigateToGemini.collectAsState()
+    var prompt by remember { mutableStateOf("") }
     val canClearPrompt by remember { derivedStateOf { prompt.isNotBlank() } }
+    if (navigateToGemini.second != null) {
+        prompt = """
+                    As a tourist, I want to explore and learn about a destination. Please provide comprehensive information about the following place: ${navigateToGemini.second?.title}.
+                    Include key details such as:
+                    - A brief overview of the place
+                    - Historical or cultural significance
+                    - Popular tourist attractions or landmarks
+                    - Best time to visit
+                    - Available activities
+                    - Images of the destination
+                    - Navigation routes or how to reach there from common locations
+                    Make the information engaging and easy to understand.
+                """.trimIndent()
+        if (prompt.isNotBlank()) {
+            coroutineScope.launch {
+                println("prompt = $prompt")
+                content = ""
+                generateContentAsFlow(api, prompt, selectedImageData)
+                    .onStart { showProgress = true }
+                    .onCompletion { showProgress = false }
+                    .collect {
+                        showProgress = false
+                        println("response = ${it.text}")
+                        content += it.text
+                    }
+            }
+        }
+    }
 
     Surface(modifier = Modifier.fillMaxWidth().padding(bottom = BOTTOM_NAV_SPACE)) {
         val imagePickerLauncher = rememberFilePickerLauncher(PickerType.Image) { selectedImage ->
