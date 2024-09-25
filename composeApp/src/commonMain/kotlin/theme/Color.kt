@@ -18,4 +18,7 @@ val ReviewBodyBg = Color(0xFFF6F8FA)
 val Yellow = Color(0xFFF8E545)
 val Red = Color(0xFFFF2828)
 val CategoryChipBg = Color(0xFF4D5652)
-val BorderColor = Color(0xFFAFAFAF)
+val BorderColor = Color(0xFFDDDDDD) // Light grey
+val LinkColor = Color(0xFF0000FF) // Blue
+val CodeBackground = Color(0xFFf9f9f9)
+

@@ -1,6 +1,6 @@
 package ui.viewmodel
 
-import androidx.lifecycle.ViewModel
+import cafe.adriel.voyager.core.model.ScreenModel
 import data.FakeCart
 import data.FakeCategories
 import data.FakeDestinations
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import model.Category
 import model.Destination
 
-class HomeViewModel : ViewModel() {
+class HomeScreenModel : ScreenModel {
     private val _destinations = MutableStateFlow(FakeDestinations.destinations)
     val destinations: StateFlow<ArrayList<Destination>> = _destinations.asStateFlow()
 
@@ -27,6 +27,10 @@ class HomeViewModel : ViewModel() {
 
     private val _bottomNavBarVisible = MutableStateFlow(true)
     val bottomNavBarVisible: StateFlow<Boolean> = _bottomNavBarVisible.asStateFlow()
+
+    private val _navigateToGemini = MutableStateFlow<Pair<Boolean, Destination?>>(Pair(false, null))
+    val navigateToGemini: StateFlow<Pair<Boolean, Destination?>> = _navigateToGemini.asStateFlow()
+
 
     fun setBottomNavBarVisible(value: Boolean) {
         _bottomNavBarVisible.update { value }
@@ -55,6 +59,10 @@ class HomeViewModel : ViewModel() {
         if (checkCartItem(destination)) {
             FakeCart.cartItems.remove(destination)
         }
+    }
+
+    fun navigateToGimini(value: Pair<Boolean, Destination?>) {
+        _navigateToGemini.value = value
     }
 
 }

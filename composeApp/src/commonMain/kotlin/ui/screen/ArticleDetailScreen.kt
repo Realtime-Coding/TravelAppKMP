@@ -1,17 +1,12 @@
 package ui.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -20,34 +15,31 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import di.HomeScreenModelProvider
 import model.Article
-import model.Destination
 import theme.Black
-import theme.BorderColor
 import theme.White
-import ui.component.ChildLayout
-import ui.component.VerticalScrollLayout
 import ui.component.article.ArticleBodyHeader
 import ui.component.article.ArticleDescription
-import ui.component.article.ArticleDestination
 import ui.component.article.ArticleHeader
 import ui.component.article.ArticleOther
 import ui.component.article.ArticlePharagraphs
-import ui.viewmodel.HomeViewModel
+import ui.viewmodel.HomeScreenModel
 import util.BOTTOM_NAV_SPACE
 
 data class ArticleDetailScreen(val article: Article) : Screen {
     @Composable
     override fun Content() {
+        val screenModel = HomeScreenModelProvider.homeScreenModel
         val navigator = LocalNavigator.currentOrThrow
-        ArticleDetailScreenView(navigator, article)
+        ArticleDetailScreenView(navigator = navigator, article = article, viewModel = screenModel)
     }
 }
 
@@ -55,12 +47,11 @@ data class ArticleDetailScreen(val article: Article) : Screen {
 fun ArticleDetailScreenView(
     navigator: Navigator,
     article: Article,
-    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel { HomeViewModel() },
+    viewModel: HomeScreenModel,
 ) {
     val rememberThumbnail = remember { mutableStateOf(article.thumbnail) }
     Column(
         modifier = Modifier
-            .padding(bottom = BOTTOM_NAV_SPACE)
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
@@ -79,7 +70,7 @@ fun ArticleDetailScreenView(
                 //viewModel.removeFavorite(it)
             },
             updateBottomNavBarVisible = {
-                //viewModel.setBottomNavBarVisible(true)
+                viewModel.setBottomNavBarVisible(true)
             }
         )
         contentSection(article) {

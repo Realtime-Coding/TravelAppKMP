@@ -1,5 +1,8 @@
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import com.travel.buddy.MuseumApp
 
 internal actual fun openUrl(url: String?) {
@@ -10,4 +13,8 @@ internal actual fun openUrl(url: String?) {
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
     MuseumApp.INSTANCE.startActivity(intent)
+}
+
+actual fun ByteArray.toComposeImageBitmap(): ImageBitmap {
+    return BitmapFactory.decodeByteArray(this, 0, size).asImageBitmap()
 }

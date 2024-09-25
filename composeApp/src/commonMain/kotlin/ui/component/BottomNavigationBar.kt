@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,7 +39,7 @@ import theme.SecondTextColor
 import ui.screen.CartTab
 import ui.screen.FavoriteTab
 import ui.screen.HomeTab
-import ui.screen.ProfileTab
+import ui.screen.GeminiTab
 
 interface Tabx: Tab {
     fun defaultTitle(): StringResource
@@ -51,7 +50,7 @@ val tabs = arrayListOf<Tabx>().apply {
     add(HomeTab)
     add(FavoriteTab)
     add(CartTab)
-    add(ProfileTab)
+    add(GeminiTab)
 }
 
 @Composable

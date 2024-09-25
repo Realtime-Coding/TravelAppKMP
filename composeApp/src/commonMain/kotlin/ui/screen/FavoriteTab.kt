@@ -21,6 +21,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import di.HomeScreenModelProvider
 import model.Destination
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -34,7 +35,7 @@ import travelbuddy.composeapp.generated.resources.fav_tab
 import travelbuddy.composeapp.generated.resources.favorite_destination
 import travelbuddy.composeapp.generated.resources.menu_fav
 import ui.component.Tabx
-import ui.viewmodel.HomeViewModel
+import ui.viewmodel.HomeScreenModel
 import util.BOTTOM_NAV_SPACE
 
 data object FavoriteTab : Tabx {
@@ -65,8 +66,9 @@ data object FavoriteTab : Tabx {
 object FavoriteScreen : Screen {
     @Composable
     override fun Content() {
+        val screenModel = HomeScreenModelProvider.homeScreenModel
         val navigator = LocalNavigator.currentOrThrow
-        FavoriteScreenView(navigator)
+        FavoriteScreenView(navigator = navigator, viewModel = screenModel)
     }
 }
 
@@ -74,7 +76,7 @@ object FavoriteScreen : Screen {
 @Composable
 fun FavoriteScreenView(
     navigator: Navigator,
-    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel { HomeViewModel() },
+    viewModel: HomeScreenModel,
 ) {
     val favorites by viewModel.favorites.collectAsState()
 
@@ -88,7 +90,7 @@ fun FavoriteScreenView(
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp),
                     text = stringResource(Res.string.favorite_destination),
                     color = TextColor,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
             }

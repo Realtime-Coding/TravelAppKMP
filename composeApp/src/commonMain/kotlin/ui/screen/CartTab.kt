@@ -16,10 +16,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import di.HomeScreenModelProvider
 import model.Destination
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -32,7 +34,7 @@ import travelbuddy.composeapp.generated.resources.menu_cart
 import ui.component.CartCard
 import ui.component.LoadItemAfterSafeCast
 import ui.component.Tabx
-import ui.viewmodel.HomeViewModel
+import ui.viewmodel.HomeScreenModel
 import util.BOTTOM_NAV_SPACE
 
 data object CartTab : Tabx {
@@ -56,15 +58,16 @@ data object CartTab : Tabx {
 
     @Composable
     override fun Content() {
+        val screenModel = HomeScreenModelProvider.homeScreenModel
         val navigator = LocalNavigator.currentOrThrow
-        CartScreenView(navigator)
+        CartScreenView(navigator = navigator, viewModel = screenModel)
     }
 }
 
 @Composable
 fun CartScreenView(
     navigator: Navigator,
-    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel { HomeViewModel() },
+    viewModel: HomeScreenModel,
 ) {
     val cartItems by viewModel.cartItems.collectAsState()
 
@@ -78,7 +81,7 @@ fun CartScreenView(
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 36.dp),
                     text = stringResource(Res.string.cart_tab),
                     color = TextColor,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
             }

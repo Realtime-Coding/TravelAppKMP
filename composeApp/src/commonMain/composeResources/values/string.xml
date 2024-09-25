@@ -2,7 +2,7 @@
 <resources>
     <string name="home_tab">Home</string>
     <string name="fav_tab">Favourite</string>
-    <string name="profile_tab">Profile</string>
+    <string name="profile_tab">Gemini</string>
     <string name="cart_tab">Cart</string>
     <string name="ratting">RATING</string>
     <string name="type">TYPE</string>
@@ -18,4 +18,5 @@
     <string name="category">Category</string>
     <string name="all">All</string>
     <string name="num_of_people">Number Of People</string>
+    <string name="gemini">Gemini ChatBot</string>
 </resources>
