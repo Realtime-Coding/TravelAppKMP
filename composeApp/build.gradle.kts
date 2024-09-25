@@ -71,6 +71,7 @@ kotlin {
             implementation(libs.coil.network.ktor)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.tab.navigator)
+            implementation(libs.voyager.screenmodel)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.markdown.renderer)
             api(libs.compose.window.size)

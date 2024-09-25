@@ -1,11 +1,5 @@
 package ui.screen
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.expandIn
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -43,7 +37,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -53,10 +47,12 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import data.GeminiApi
 import dev.shreyaspatil.ai.client.generativeai.type.GenerateContentResponse
+import di.HomeScreenModelProvider
 import io.github.vinceglb.filekit.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.core.PickerType
 import kotlinx.coroutines.flow.Flow
@@ -75,6 +71,7 @@ import travelbuddy.composeapp.generated.resources.menu_profile
 import travelbuddy.composeapp.generated.resources.profile_tab
 import ui.component.ShimmerAnimation
 import ui.component.Tabx
+import ui.viewmodel.HomeScreenModel
 import util.BOTTOM_NAV_SPACE
 
 data object GeminiTab : Tabx {
@@ -98,17 +95,23 @@ data object GeminiTab : Tabx {
 
     @Composable
     override fun Content() {
+        val screenModel = HomeScreenModelProvider.homeScreenModel
         val navigator = LocalNavigator.currentOrThrow
-        GeminiScreenView(navigator)
+        GeminiScreenView(navigator = navigator, viewModel = screenModel)
     }
 }
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun GeminiScreenView(navigator: Navigator){
+fun GeminiScreenView(navigator: Navigator, viewModel: HomeScreenModel){
+    val navigateToGemini by viewModel.navigateToGemini.collectAsState()
+    var prompt by remember { mutableStateOf("") }
+    if (navigateToGemini.second != null) {
+        prompt = "Please search the desting by title and provide maximum information  as a tourist I want to know about the place. Here is the title: ${navigateToGemini.second?.title}"
+    }
+    viewModel.setBottomNavBarVisible(true)
     val api = remember { GeminiApi() }
     val coroutineScope = rememberCoroutineScope()
-    var prompt by remember { mutableStateOf("") }
     var selectedImageData by remember { mutableStateOf<ByteArray?>(null) }
     var content by remember { mutableStateOf("") }
     var showProgress by remember { mutableStateOf(false) }
@@ -143,7 +146,7 @@ fun GeminiScreenView(navigator: Navigator){
                 modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
             ) {
                 OutlinedTextField(
-                    value = prompt,
+                    value = navigateToGemini.second?.title ?: prompt,
                     onValueChange = { prompt = it },
                     modifier = Modifier
                         .fillMaxSize()

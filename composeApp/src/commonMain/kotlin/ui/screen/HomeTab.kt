@@ -19,12 +19,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import data.FakeArticles
+import di.HomeScreenModelProvider
 import model.Destination
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -48,7 +50,7 @@ import ui.component.destinationSmallItem
 import ui.component.homeHeader
 import ui.component.loadCategoryItems
 import ui.component.loadDestinationLargeItems
-import ui.viewmodel.HomeViewModel
+import ui.viewmodel.HomeScreenModel
 import util.BOTTOM_NAV_SPACE
 
 enum class HomeScreenContents {
@@ -91,15 +93,16 @@ data object HomeTab : Tabx {
 object HomeScreen : Screen {
     @Composable
     override fun Content() {
+        val screenModel = HomeScreenModelProvider.homeScreenModel
         val navigator = LocalNavigator.currentOrThrow
-        HomeScreenView(navigator = navigator)
+        HomeScreenView(navigator = navigator, viewModel = screenModel)
     }
 }
 
 
 @Composable
 fun HomeScreenView(
-    viewModel: HomeViewModel = viewModel { HomeViewModel() },
+    viewModel: HomeScreenModel,
     navigator: Navigator
 ) {
     val destinations by viewModel.destinations.collectAsState()

@@ -18,6 +18,7 @@ import coil3.memory.MemoryCache
 import coil3.request.CachePolicy
 import coil3.request.crossfade
 import coil3.util.DebugLogger
+import di.HomeScreenModelProvider
 import okio.FileSystem
 import theme.TravelAppTheme
 import ui.component.BottomMenuBar
@@ -26,18 +27,17 @@ import ui.screen.CartTab
 import ui.screen.FavoriteTab
 import ui.screen.HomeTab
 import ui.screen.GeminiTab
-import ui.viewmodel.HomeViewModel
 import util.AnimateVisibility
 
 @Composable
-internal fun App(
-    viewModel: HomeViewModel = viewModel { HomeViewModel() }
-) {
+internal fun App() {
     TravelAppTheme {
 
         setSingletonImageLoaderFactory { context ->
             getAsyncImageLoader(context)
         }
+
+        val viewModel = HomeScreenModelProvider.homeScreenModel
 
         val bottomNavBarVisibility by viewModel.bottomNavBarVisible.collectAsState()
 
