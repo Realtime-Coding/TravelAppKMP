@@ -52,7 +52,6 @@ fun ArticleDetailScreenView(
     val rememberThumbnail = remember { mutableStateOf(article.thumbnail) }
     Column(
         modifier = Modifier
-            .padding(bottom = BOTTOM_NAV_SPACE)
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
@@ -71,7 +70,7 @@ fun ArticleDetailScreenView(
                 //viewModel.removeFavorite(it)
             },
             updateBottomNavBarVisible = {
-                //viewModel.setBottomNavBarVisible(true)
+                viewModel.setBottomNavBarVisible(true)
             }
         )
         contentSection(article) {

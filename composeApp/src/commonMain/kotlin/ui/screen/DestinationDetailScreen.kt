@@ -106,7 +106,6 @@ fun DestinationDetailScreenView(
     val rememberThumbnail = remember { mutableStateOf(destination.thumbnail) }
     Column(
         modifier = Modifier
-            .padding(bottom = BOTTOM_NAV_SPACE)
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
