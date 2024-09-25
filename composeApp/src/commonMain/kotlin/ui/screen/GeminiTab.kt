@@ -134,7 +134,10 @@ fun GeminiScreenView(navigator: Navigator, viewModel: HomeScreenModel){
                 content = ""
                 generateContentAsFlow(api, prompt, selectedImageData)
                     .onStart { showProgress = true }
-                    .onCompletion { showProgress = false }
+                    .onCompletion {
+                        showProgress = false
+                        viewModel.navigateToGimini(Pair(false, null))
+                    }
                     .collect {
                         showProgress = false
                         println("response = ${it.text}")

@@ -353,7 +353,6 @@ fun GeminiRoundButton(
     if (navigateToGemini.first) {
         LocalNavigator.current?.pop()
         LocalTabNavigator.current.current = GeminiTab
-        viewModel.navigateToGimini(navigateToGemini.copy(false))
     }
 
     // Animate width change
