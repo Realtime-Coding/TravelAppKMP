@@ -66,6 +66,7 @@ import theme.PrimaryColor
 import theme.TextColor
 import toComposeImageBitmap
 import travelbuddy.composeapp.generated.resources.Res
+import travelbuddy.composeapp.generated.resources.chat_bot
 import travelbuddy.composeapp.generated.resources.gemini
 import travelbuddy.composeapp.generated.resources.menu_profile
 import travelbuddy.composeapp.generated.resources.profile_tab
@@ -76,7 +77,7 @@ import util.BOTTOM_NAV_SPACE
 
 data object GeminiTab : Tabx {
     override fun defaultTitle(): StringResource = Res.string.profile_tab
-    override fun defaultIcon(): DrawableResource = Res.drawable.menu_profile
+    override fun defaultIcon(): DrawableResource = Res.drawable.chat_bot
 
     override val options: TabOptions
         @Composable
