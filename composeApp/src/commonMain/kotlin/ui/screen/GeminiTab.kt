@@ -115,8 +115,8 @@ fun GeminiScreenView(navigator: Navigator, viewModel: HomeScreenModel){
     val navigateToGemini by viewModel.navigateToGemini.collectAsState()
     var prompt by remember { mutableStateOf("") }
     val canClearPrompt by remember { derivedStateOf { prompt.isNotBlank() } }
-    if (navigateToGemini.second != null) {
-        prompt = """
+    if (navigateToGemini.first && navigateToGemini.second != null) {
+        val customPrompt = """
                     As a tourist, I want to explore and learn about a destination. Please provide comprehensive information about the following place: ${navigateToGemini.second?.title}.
                     Include key details such as:
                     - A brief overview of the place
@@ -128,22 +128,20 @@ fun GeminiScreenView(navigator: Navigator, viewModel: HomeScreenModel){
                     - Navigation routes or how to reach there from common locations
                     Make the information engaging and easy to understand.
                 """.trimIndent()
-        if (prompt.isNotBlank()) {
-            coroutineScope.launch {
-                println("prompt = $prompt")
-                content = ""
-                generateContentAsFlow(api, prompt, selectedImageData)
-                    .onStart { showProgress = true }
-                    .onCompletion {
-                        showProgress = false
-                        viewModel.navigateToGimini(Pair(false, null))
-                    }
-                    .collect {
-                        showProgress = false
-                        println("response = ${it.text}")
-                        content += it.text
-                    }
-            }
+        coroutineScope.launch {
+            println("prompt = $customPrompt")
+            content = ""
+            generateContentAsFlow(api, customPrompt, selectedImageData)
+                .onStart { showProgress = true }
+                .onCompletion {
+                    showProgress = false
+                    viewModel.navigateToGimini(navigateToGemini.copy(false))
+                }
+                .collect {
+                    showProgress = false
+                    println("response = ${it.text}")
+                    content += it.text
+                }
         }
     }
 
