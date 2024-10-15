@@ -1,5 +1,7 @@
 package di
 
+import ui.viewmodel.HomeScreenModel
+
 //import org.koin.core.context.startKoin
 //import org.koin.dsl.module
 //
@@ -14,3 +16,9 @@ package di
 //        )
 //    }
 //}
+
+object HomeScreenModelProvider {
+    val homeScreenModel: HomeScreenModel by lazy {
+        HomeScreenModel()
+    }
+}

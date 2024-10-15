@@ -4,11 +4,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.graphics.ImageBitmap
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.CurrentTab
-import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import coil3.ImageLoader
 import coil3.PlatformContext
@@ -18,6 +17,7 @@ import coil3.memory.MemoryCache
 import coil3.request.CachePolicy
 import coil3.request.crossfade
 import coil3.util.DebugLogger
+import di.HomeScreenModelProvider
 import okio.FileSystem
 import theme.TravelAppTheme
 import ui.component.BottomMenuBar
@@ -25,19 +25,18 @@ import ui.component.tabs
 import ui.screen.CartTab
 import ui.screen.FavoriteTab
 import ui.screen.HomeTab
-import ui.screen.ProfileTab
-import ui.viewmodel.HomeViewModel
+import ui.screen.GeminiTab
 import util.AnimateVisibility
 
 @Composable
-internal fun App(
-    viewModel: HomeViewModel = viewModel { HomeViewModel() }
-) {
+internal fun App() {
     TravelAppTheme {
 
         setSingletonImageLoaderFactory { context ->
             getAsyncImageLoader(context)
         }
+
+        val viewModel = HomeScreenModelProvider.homeScreenModel
 
         val bottomNavBarVisibility by viewModel.bottomNavBarVisible.collectAsState()
 
@@ -57,7 +56,7 @@ internal fun App(
                                 HomeTab -> LocalNavigator.currentOrThrow.push(HomeTab)
                                 FavoriteTab -> LocalNavigator.currentOrThrow.push(FavoriteTab)
                                 CartTab -> LocalNavigator.currentOrThrow.push(CartTab)
-                                ProfileTab -> LocalNavigator.currentOrThrow.push(ProfileTab)
+                                GeminiTab -> LocalNavigator.currentOrThrow.push(GeminiTab)
                             }
                         }
                     }
@@ -82,3 +81,5 @@ fun newDiskCache(): DiskCache {
         .maxSizeBytes(1024L * 1024 * 1024) // 512MB
         .build()
 }
+
+expect fun ByteArray.toComposeImageBitmap(): ImageBitmap
