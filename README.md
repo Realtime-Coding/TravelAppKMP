@@ -1,7 +1,7 @@
-#  Travel APP (Kotlin Multiplatform Mobile)
+#  Travel APP (Compose Multiplatform)
 
-Travel App is a simple **mobile application** built to demonstrate the use of
-_**Kotlin Multiplatform Mobile**_ for developing _Android and iOS_ applications
+Travel App demonstrate the use of
+_**Compose Multiplatform**_ for developing IOS, Android, MacOS, Window & Web applications
 using **Jetpack Compose** 🚀.
 
 ## ![Android](https://img.shields.io/badge/Android-black.svg?style=for-the-badge&logo=android) ![IOS](https://img.shields.io/badge/iOS-black.svg?style=for-the-badge&logo=apple) ![MacOS](https://img.shields.io/badge/macOS-black.svg?style=for-the-badge&logo=apple) ![MSI](https://img.shields.io/badge/MSI-black.svg?style=for-the-badge&logo=windows) ![Desktop Windows](https://img.shields.io/badge/Desktop%20Windows-black.svg?style=for-the-badge&logo=windows) ![Web](https://img.shields.io/badge/Web-black.svg?style=for-the-badge&logo=internet-explorer)
@@ -25,8 +25,9 @@ https://drive.google.com/file/d/1aDrhqpvc4XUdEaO-6aBZrE6HRFglDnl_/view?usp=shari
 
 - [Kotlin](kotlinlang.org): Programming language
 - [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html): For building multi-platform applications in the single codebase.
-- [Jetpack/JetBrains Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/): For a shared UI between multi-platforms i.e. Android and iOS in this project.
-- [Moko Resources](https://github.com/icerockdev/moko-resources): This is a Kotlin MultiPlatform library (and Gradle plugin) that provides access to the resources on macOS, iOS, Android the JVM and JS/Browser with the support of the default system localization.
+- [Jetpack/JetBrains Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/): For a shared UI between multi-platforms i.e. IOS, Android, MacOS, Window and Web in this project.
+- [Compose Resource]([https://github.com/icerockdev/moko-resources](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-resources.html)): 
+Compose Resource is a structured approach for managing and accessing UI resources (such as strings, colors, and images) in Jetpack Compose across multiple platforms. When used in conjunction with libraries like Moko Resources, it allows for a unified and type-safe way to work with localized and platform-specific assets in Kotlin Multiplatform projects. This setup ensures that resources are accessible in a Compose-friendly way across Android, iOS, macOS, the JVM, and JS (Browser), with full support for system localization and consistent design.
 -  [Compose Image Loader](https://github.com/qdsfdhvh/compose-imageloader): Compose Image library for Kotlin Multiplatform.
 
 
