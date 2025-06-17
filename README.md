@@ -26,7 +26,7 @@ https://drive.google.com/file/d/1aDrhqpvc4XUdEaO-6aBZrE6HRFglDnl_/view?usp=shari
 - [Kotlin](kotlinlang.org): Programming language
 - [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html): For building multi-platform applications in the single codebase.
 - [Jetpack/JetBrains Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/): For a shared UI between multi-platforms i.e. IOS, Android, MacOS, Window and Web in this project.
-- [Compose Resource]([https://github.com/icerockdev/moko-resources](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-resources.html)): 
+- [Compose Resource](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-resources.html): 
 Compose Resource is a structured approach for managing and accessing UI resources (such as strings, colors, and images) in Jetpack Compose across multiple platforms. When used in conjunction with libraries like Moko Resources, it allows for a unified and type-safe way to work with localized and platform-specific assets in Kotlin Multiplatform projects. This setup ensures that resources are accessible in a Compose-friendly way across Android, iOS, macOS, the JVM, and JS (Browser), with full support for system localization and consistent design.
 -  [Compose Image Loader](https://github.com/qdsfdhvh/compose-imageloader): Compose Image library for Kotlin Multiplatform.
 
